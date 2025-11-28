@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+	<ShortName>Ozon</ShortName>
+	<Description>OZON.ru provider</Description>
+	<Tags>Выбирайте подарки на OZON.ru - интернет-магазин, где есть всё, что нужно: электроника, одежда, косметика, книги, зоотовары, продукты и многое другое. Быстрая доставка на дом или в пункты выдачи. Праздничные скидки и акции. Спецпредложения для постоянных покупателей.</Tags>
+	<Url type="text/html" template="https://www.ozon.ru/search?text={searchTerms}&amp;from=OpenSearch" />
+	<LongName>OZON.ru</LongName>
+	<Image height="16" width="16" type="image/x-icon">https://www.ozon.ru/favicon.ico</Image>
+	<Developer>OZON.ru Development Team</Developer>
+	<Attribution>Search data Copyright 2007, OZON.ru, All Rights Reserved</Attribution>
+	<AdultContent>false</AdultContent>
+	<Language>ru-ru</Language>
+</OpenSearchDescription>

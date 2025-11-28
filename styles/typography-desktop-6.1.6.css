@@ -1,0 +1,370 @@
+.tsHeadline900XxLarge {
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 52px;
+}
+.tsHeadline800XxLarge {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 44px;
+}
+.tsHeadline700XLarge {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 36px;
+}
+.tsHeadline600Medium {
+  line-height: 30px;
+}
+.tsHeadline600Large,
+.tsHeadline600Medium {
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.tsHeadline600Large {
+  line-height: 32px;
+}
+.tsHeadline550Medium {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 30px;
+}
+.tsHeadline500Medium {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+.tsHeadline500XMedium {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 26px;
+}
+.tsHeadline400Small {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+.tsHeadline300XSmall {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+.tsHeadlineNumeric800XxLarge {
+  font-size: 40px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 44px;
+}
+.tsHeadlineNumeric700XLarge {
+  font-size: 32px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 36px;
+}
+.tsHeadlinePromo500Medium {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+.tsHeadlinePromo400Small {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+.tsHeadlineCompact400Small {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+.tsHeadlineCompact400Medium {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+.tsBody600Medium {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 26px;
+}
+.tsBody500Medium {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+.tsBody500Large,
+.tsBody500Small {
+  font-size: 16px;
+}
+.tsBody400Large,
+.tsBody500Large,
+.tsBody500Small {
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+.tsBody400Large {
+  font-size: 14px;
+}
+.tsBody400Small {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+.tsBody300XSmall {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.tsBody200XSmall {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 14px;
+}
+.tsBodyAccent500Medium {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+.tsBodyAccent400Small {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+.tsBodyAccent300XSmall {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.tsBodyAccent250Caption {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 14px;
+  text-transform: uppercase;
+}
+.tsBodyControl700XLarge {
+  line-height: 28px;
+}
+.tsBodyControl700Large,
+.tsBodyControl700XLarge {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.tsBodyControl700Large {
+  line-height: 20px;
+}
+.tsBodyControl600Large {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 26px;
+}
+.tsBodyControl500Medium {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+.tsBodyControl400Small {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+.tsBodyControl300XSmall {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.tsBodyNumeric600Large {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.tsBodyNumeric500Medium,
+.tsBodyNumeric600Large {
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+.tsBodyNumeric500Medium {
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+}
+.tsBodyNumeric400Small {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+.tsBodyNumeric300XSmall {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.tsBodyNumeric200XSmall {
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 14px;
+}
+.tsBodyPromo300XSmall {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.tsCompact600Large {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+.tsCompact500Medium {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+.tsCompact400Large {
+  line-height: 18px;
+}
+.tsCompact400Large,
+.tsCompact400Small {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.tsCompact400Small {
+  line-height: 16px;
+}
+.tsCompact300XSmall {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 14px;
+}
+.tsCompactControl500Medium {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+.tsCompactControl400Small {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.tsCompactControl300XSmall {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 14px;
+}
+.tsCompactNumeric600Large {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 22px;
+}
+.tsCompactNumeric400Small {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 16px;
+}
+.tsKeyPromo900Medium {
+  font-size: 120px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 120px;
+}
+.tsKeyPromo800Large {
+  font-size: 96px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 104px;
+}
+.tsKeyPromo800Small {
+  font-size: 80px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 88px;
+}
+.tsKeyPromo700Large,
+.tsKeyPromo700XLarge {
+  font-size: 80px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 72px;
+}
+.tsKeyPromo650Large {
+  font-size: 80px;
+}
+.tsKeyPromo600XLarge,
+.tsKeyPromo650Large {
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 72px;
+}
+.tsKeyPromo600XLarge {
+  font-size: 64px;
+}
+.tsKeyPromo500Medium,
+.tsKeyPromo600Large {
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 72px;
+}
+.tsKeyPromo400Large {
+  font-weight: 900;
+}
+.tsKeyPromo400Large,
+.tsKeyPromo400Medium {
+  font-size: 56px;
+  letter-spacing: 0;
+  line-height: 64px;
+}
+.tsKeyPromo400Medium {
+  font-weight: 700;
+}
+.tsKeyPromo200XSmall {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 26px;
+}
