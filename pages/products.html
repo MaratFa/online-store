@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products Catalog - Free Online Store Template | Modern Shop</title>
+    <meta name="description" content="Browse our product catalog featuring electronics, clothing, accessories, and furniture. Our free online store template includes advanced filtering, search, and sorting options." />
+    <meta name="keywords" content="product catalog, online store products, free e-commerce products, electronics, clothing, accessories, furniture, product filters" />
+    <meta name="author" content="Modern Shop Template" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yourwebsite.com/products.html" />
+    <meta property="og:title" content="Products Catalog - Free Online Store Template" />
+    <meta property="og:description" content="Browse our product catalog featuring electronics, clothing, accessories, and furniture. Our free online store template includes advanced filtering, search, and sorting options." />
+    <meta property="og:image" content="https://yourwebsite.com/images/hero.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://yourwebsite.com/products.html" />
+    <meta property="twitter:title" content="Products Catalog - Free Online Store Template" />
+    <meta property="twitter:description" content="Browse our product catalog featuring electronics, clothing, accessories, and furniture. Our free online store template includes advanced filtering, search, and sorting options." />
+    <meta property="twitter:image" content="https://yourwebsite.com/images/hero.jpg" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourwebsite.com/products.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Products Catalog - Free Online Store Template",
+      "url": "https://yourwebsite.com/products.html",
+      "description": "Browse our product catalog featuring electronics, clothing, accessories, and furniture. Our free online store template includes advanced filtering, search, and sorting options.",
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": "20",
+        "itemListElement": [
+          {
+            "@type": "Product",
+            "name": "Premium Wireless Headphones",
+            "description": "High-quality wireless headphones with noise cancellation and superior sound quality.",
+            "image": "https://yourwebsite.com/images/headphones.jpg",
+            "category": "Electronics"
+          },
+          {
+            "@type": "Product",
+            "name": "Leather Laptop Bag",
+            "description": "Stylish and durable leather laptop bag designed for professionals.",
+            "image": "https://yourwebsite.com/images/laptop-bag.jpg",
+            "category": "Accessories"
+          }
+        ]
+      }
+    }
+    </script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/products.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+    <!-- Header will be included here -->
+    <header id="header"></header>
+
+    <!-- Hero Section -->
+    <section class="products-hero">
+        <div class="container">
+            <h1>Products Catalog</h1>
+            <p>Browse our extensive collection of high-quality products across various categories.</p>
+        </div>
+    </section>
+
+    <!-- Filter and Sort Section -->
+    <section class="filter-sort-section">
+        <div class="container">
+            <div class="filter-sort-container">
+                <div class="filter-toggle" id="filter-toggle">
+                    <i class="fas fa-filter"></i>
+                    <span>Filters</span>
+                </div>
+                
+                <div class="view-options">
+                    <button class="view-btn grid-view active" data-view="grid">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn list-view" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+                
+                <div class="sort-dropdown">
+                    <button class="sort-btn" id="sort-btn">
+                        <span>Sort By</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="sort-options" id="sort-options">
+                        <div class="sort-option active" data-sort="default">Default</div>
+                        <div class="sort-option" data-sort="price-low">Price: Low to High</div>
+                        <div class="sort-option" data-sort="price-high">Price: High to Low</div>
+                        <div class="sort-option" data-sort="name">Name</div>
+                        <div class="sort-option" data-sort="rating">Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <div class="products-layout">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar" id="filters-sidebar">
+                    <div class="filter-group">
+                        <h3 class="filter-title" data-target="category-filter">
+                            <span>Categories</span>
+                            <i class="fas fa-chevron-up"></i>
+                        </h3>
+                        <div class="filter-content" id="category-filter">
+                            <ul class="filter-list">
+                                <li class="filter-item">
+                                    <input type="checkbox" id="electronics" name="category" value="electronics" class="filter-checkbox">
+                                    <label for="electronics" class="filter-label">
+                                        <span>Electronics</span>
+                                        <span class="filter-count">8</span>
+                                    </label>
+                                </li>
+                                <li class="filter-item">
+                                    <input type="checkbox" id="clothing" name="category" value="clothing" class="filter-checkbox">
+                                    <label for="clothing" class="filter-label">
+                                        <span>Clothing</span>
+                                        <span class="filter-count">6</span>
+                                    </label>
+                                </li>
+                                <li class="filter-item">
+                                    <input type="checkbox" id="accessories" name="category" value="accessories" class="filter-checkbox">
+                                    <label for="accessories" class="filter-label">
+                                        <span>Accessories</span>
+                                        <span class="filter-count">4</span>
+                                    </label>
+                                </li>
+                                <li class="filter-item">
+                                    <input type="checkbox" id="furniture" name="category" value="furniture" class="filter-checkbox">
+                                    <label for="furniture" class="filter-label">
+                                        <span>Furniture</span>
+                                        <span class="filter-count">2</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h3 class="filter-title" data-target="price-filter">
+                            <span>Price</span>
+                            <i class="fas fa-chevron-up"></i>
+                        </h3>
+                        <div class="filter-content" id="price-filter">
+                            <div class="price-filter">
+                                <div class="price-inputs">
+                                    <input type="number" id="min-price" placeholder="Min" min="0" class="price-input">
+                                    <span>-</span>
+                                    <input type="number" id="max-price" placeholder="Max" min="0" class="price-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h3 class="filter-title" data-target="brand-filter">
+                            <span>Brand</span>
+                            <i class="fas fa-chevron-up"></i>
+                        </h3>
+                        <div class="filter-content" id="brand-filter">
+                            <ul class="filter-list">
+                                <li class="filter-item">
+                                    <input type="checkbox" id="brand1" name="brand" value="brand1" class="filter-checkbox">
+                                    <label for="brand1" class="filter-label">
+                                        <span>TechPro</span>
+                                        <span class="filter-count">5</span>
+                                    </label>
+                                </li>
+                                <li class="filter-item">
+                                    <input type="checkbox" id="brand2" name="brand" value="brand2" class="filter-checkbox">
+                                    <label for="brand2" class="filter-label">
+                                        <span>FashionHub</span>
+                                        <span class="filter-count">4</span>
+                                    </label>
+                                </li>
+                                <li class="filter-item">
+                                    <input type="checkbox" id="brand3" name="brand" value="brand3" class="filter-checkbox">
+                                    <label for="brand3" class="filter-label">
+                                        <span>HomeStyle</span>
+                                        <span class="filter-count">3</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h3 class="filter-title" data-target="rating-filter">
+                            <span>Customer Rating</span>
+                            <i class="fas fa-chevron-up"></i>
+                        </h3>
+                        <div class="filter-content" id="rating-filter">
+                            <ul class="filter-list">
+                                <li class="filter-item">
+                                    <input type="checkbox" id="rating5" name="rating" value="5" class="filter-checkbox">
+                                    <label for="rating5" class="filter-label">
+                                        <span><i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i></span>
+                                        <span class="filter-count">7</span>
+                                    </label>
+                                </li>
+                                <li class="filter-item">
+                                    <input type="checkbox" id="rating4" name="rating" value="4" class="filter-checkbox">
+                                    <label for="rating4" class="filter-label">
+                                        <span><i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="far fa-star"></i></span>
+                                        <span class="filter-count">5</span>
+                                    </label>
+                                </li>
+                                <li class="filter-item">
+                                    <input type="checkbox" id="rating3" name="rating" value="3" class="filter-checkbox">
+                                    <label for="rating3" class="filter-label">
+                                        <span><i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></span>
+                                        <span class="filter-count">3</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <button class="apply-filters-btn">Apply Filters</button>
+                    <div class="reset-filters">Reset All Filters</div>
+                </aside>
+                
+                <!-- Products Content -->
+                <div class="products-content">
+                    <div class="products-grid" id="products-grid">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <ul class="pagination-list">
+                            <li class="page-item disabled"><i class="fas fa-chevron-left"></i></li>
+                            <li class="page-item active">1</li>
+                            <li class="page-item">2</li>
+                            <li class="page-item">3</li>
+                            <li class="page-item">4</li>
+                            <li class="page-item">5</li>
+                            <li class="page-item"><i class="fas fa-chevron-right"></i></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Filter Overlay for Mobile -->
+    <div class="filter-overlay" id="filter-overlay"></div>
+
+    <!-- Footer will be included here -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts -->
+    <script src="../js/data.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/products.js"></script>
+</body>
+</html>

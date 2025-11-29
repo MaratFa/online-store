@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Account - Free Online Store Template | Modern Shop</title>
+    <meta name="description" content="Manage your account, view order history, and track shipments with our free online store template. Modern Shop offers a complete user account management system." />
+    <meta name="keywords" content="user account, order management, order history, track order, online store account, free e-commerce account system" />
+    <meta name="author" content="Modern Shop Template" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourwebsite.com/account.html" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/account.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+    <!-- Header will be included here -->
+    <header id="header"></header>
+
+    <!-- Hero Section -->
+    <section class="account-hero">
+        <div class="container">
+            <h1>My Account</h1>
+            <p>Manage your account settings, view order history, and track shipments</p>
+        </div>
+    </section>
+
+    <!-- Account Section -->
+    <section class="account-section">
+        <div class="container">
+            <div class="account-container">
+                <!-- Sidebar Navigation -->
+                <aside class="account-sidebar">
+                    <nav class="account-nav">
+                        <ul class="account-nav-list">
+                            <li class="account-nav-item">
+                                <a href="#dashboard" class="account-nav-link active">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="account-nav-item">
+                                <a href="#profile" class="account-nav-link">
+                                    <i class="fas fa-user"></i>
+                                    <span>Profile</span>
+                                </a>
+                            </li>
+                            <li class="account-nav-item">
+                                <a href="#orders" class="account-nav-link">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Orders</span>
+                                </a>
+                            </li>
+                            <li class="account-nav-item">
+                                <a href="#addresses" class="account-nav-link">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Addresses</span>
+                                </a>
+                            </li>
+                            <li class="account-nav-item">
+                                <a href="#payment" class="account-nav-link">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Payment Methods</span>
+                                </a>
+                            </li>
+                            <li class="account-nav-item">
+                                <a href="#notifications" class="account-nav-link">
+                                    <i class="fas fa-bell"></i>
+                                    <span>Notifications</span>
+                                </a>
+                            </li>
+                            <li class="account-nav-item">
+                                <a href="#security" class="account-nav-link">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Security</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+                
+                <!-- Account Content -->
+                <div class="account-content">
+                    <!-- Dashboard Section -->
+                    <div class="account-card" id="dashboard">
+                        <h2>Dashboard</h2>
+                        <div class="account-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="stat-value">8</div>
+                                <div class="stat-label">Wishlist Items</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">Saved Addresses</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="stat-value">2</div>
+                                <div class="stat-label">Payment Methods</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Profile Section -->
+                    <div class="account-card" id="profile" style="display: none;">
+                        <h2>Profile Information</h2>
+                        <form class="profile-form">
+                            <div class="form-group">
+                                <label for="first-name" class="form-label">First Name</label>
+                                <input type="text" id="first-name" class="form-input" value="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name" class="form-label">Last Name</label>
+                                <input type="text" id="last-name" class="form-input" value="Doe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" class="form-input" value="john.doe@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" class="form-input" value="+1 (555) 123-4567">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="bio" class="form-label">Bio</label>
+                                <textarea id="bio" class="form-input form-textarea" placeholder="Tell us about yourself"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Orders Section -->
+                    <div class="account-card" id="orders" style="display: none;">
+                        <h2>Order History</h2>
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#12345</td>
+                                    <td>2023-06-15</td>
+                                    <td><span class="order-status status-delivered">Delivered</span></td>
+                                    <td>$125.99</td>
+                                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#12346</td>
+                                    <td>2023-06-20</td>
+                                    <td><span class="order-status status-shipped">Shipped</span></td>
+                                    <td>$89.50</td>
+                                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#12347</td>
+                                    <td>2023-06-25</td>
+                                    <td><span class="order-status status-processing">Processing</span></td>
+                                    <td>$210.75</td>
+                                    <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Addresses Section -->
+                    <div class="account-card" id="addresses" style="display: none;">
+                        <h2>Shipping Addresses</h2>
+                        <div class="addresses-grid">
+                            <div class="address-card default">
+                                <span class="default-badge">Default</span>
+                                <h3 class="address-title">Home</h3>
+                                <div class="address-details">
+                                    John Doe<br>
+                                    123 Main St<br>
+                                    New York, NY 10001<br>
+                                    United States<br>
+                                    +1 (555) 123-4567
+                                </div>
+                                <div class="address-actions">
+                                    <button class="btn btn-sm btn-secondary">Edit</button>
+                                    <button class="btn btn-sm btn-secondary">Remove</button>
+                                </div>
+                            </div>
+                            <div class="address-card">
+                                <h3 class="address-title">Work</h3>
+                                <div class="address-details">
+                                    John Doe<br>
+                                    456 Business Ave<br>
+                                    New York, NY 10002<br>
+                                    United States<br>
+                                    +1 (555) 987-6543
+                                </div>
+                                <div class="address-actions">
+                                    <button class="btn btn-sm btn-secondary">Edit</button>
+                                    <button class="btn btn-sm btn-secondary">Remove</button>
+                                </div>
+                            </div>
+                            <div class="address-card add-address">
+                                <div class="address-content">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <h3>Add New Address</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Methods Section -->
+                    <div class="account-card" id="payment" style="display: none;">
+                        <h2>Payment Methods</h2>
+                        <div class="payment-methods">
+                            <div class="payment-card default">
+                                <div class="payment-icon">
+                                    <i class="fab fa-cc-visa"></i>
+                                </div>
+                                <div class="payment-details">
+                                    <div class="payment-title">Visa ending in 4242</div>
+                                    <div class="payment-info">Expires 12/25</div>
+                                </div>
+                                <div class="payment-actions">
+                                    <button class="btn btn-sm btn-secondary">Edit</button>
+                                </div>
+                            </div>
+                            <div class="payment-card">
+                                <div class="payment-icon">
+                                    <i class="fab fa-paypal"></i>
+                                </div>
+                                <div class="payment-details">
+                                    <div class="payment-title">PayPal</div>
+                                    <div class="payment-info">john.doe@example.com</div>
+                                </div>
+                                <div class="payment-actions">
+                                    <button class="btn btn-sm btn-secondary">Edit</button>
+                                </div>
+                            </div>
+                            <div class="payment-card add-payment">
+                                <div class="payment-content">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <h3>Add Payment Method</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Notifications Section -->
+                    <div class="account-card" id="notifications" style="display: none;">
+                        <h2>Notification Settings</h2>
+                        <div class="notification-item">
+                            <div class="notification-info">
+                                <div class="notification-title">Order Status Updates</div>
+                                <div class="notification-desc">Get notified about your order status changes</div>
+                            </div>
+                            <div class="toggle-switch active">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-info">
+                                <div class="notification-title">Special Offers</div>
+                                <div class="notification-desc">Receive exclusive deals and promotions</div>
+                            </div>
+                            <div class="toggle-switch active">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-info">
+                                <div class="notification-title">Newsletter</div>
+                                <div class="notification-desc">Subscribe to our weekly newsletter</div>
+                            </div>
+                            <div class="toggle-switch">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Section -->
+                    <div class="account-card" id="security" style="display: none;">
+                        <h2>Security Settings</h2>
+                        <div class="security-item">
+                            <div class="security-info">
+                                <div class="security-title">Change Password</div>
+                                <div class="security-desc">Last changed 3 months ago</div>
+                            </div>
+                            <button class="btn btn-primary">Change</button>
+                        </div>
+                        <div class="security-item">
+                            <div class="security-info">
+                                <div class="security-title">Two-Factor Authentication</div>
+                                <div class="security-desc">Add an extra layer of security to your account</div>
+                            </div>
+                            <div class="toggle-switch">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        <div class="security-item">
+                            <div class="security-info">
+                                <div class="security-title">Login History</div>
+                                <div class="security-desc">View recent account logins</div>
+                            </div>
+                            <button class="btn btn-secondary">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer will be included here -->
+    <footer id="footer"></footer>
+
+    <!-- Add Address Modal -->
+    <div class="modal" id="add-address-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Address</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="address-form">
+                    <div class="form-group">
+                        <label for="address-name" class="form-label">Address Name</label>
+                        <input type="text" id="address-name" class="form-input" placeholder="Home, Work, etc." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address-street" class="form-label">Street Address</label>
+                        <input type="text" id="address-street" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address-city" class="form-label">City</label>
+                        <input type="text" id="address-city" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address-state" class="form-label">State/Province</label>
+                        <input type="text" id="address-state" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address-zip" class="form-label">Zip/Postal Code</label>
+                        <input type="text" id="address-zip" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address-country" class="form-label">Country</label>
+                        <input type="text" id="address-country" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address-phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="address-phone" class="form-input" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Address</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Payment Modal -->
+    <div class="modal" id="add-payment-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Payment Method</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="payment-form">
+                    <div class="form-group">
+                        <label for="payment-type" class="form-label">Payment Type</label>
+                        <select id="payment-type" class="form-input" required>
+                            <option value="">Select Payment Type</option>
+                            <option value="credit-card">Credit Card</option>
+                            <option value="debit-card">Debit Card</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-number" class="form-label">Card Number</label>
+                        <input type="text" id="card-number" class="form-input" placeholder="1234 5678 9012 3456" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-name" class="form-label">Cardholder Name</label>
+                        <input type="text" id="card-name" class="form-input" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-expiry" class="form-label">Expiry Date</label>
+                        <input type="text" id="card-expiry" class="form-input" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-cvv" class="form-label">CVV</label>
+                        <input type="text" id="card-cvv" class="form-input" placeholder="123" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Payment Method</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="change-password-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Change Password</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="password-form">
+                    <div class="form-group">
+                        <label for="current-password" class="form-label">Current Password</label>
+                        <input type="password" id="current-password" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password" class="form-label">New Password</label>
+                        <input type="password" id="new-password" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password" class="form-label">Confirm New Password</label>
+                        <input type="password" id="confirm-password" class="form-input" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary modal-cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/data.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/account.js"></script>
+</body>
+</html>
