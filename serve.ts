@@ -1,13 +1,15 @@
-const express = require('express');
-const path = require('path');
-const app = express();
-const port = process.env.PORT || 3000;
+
+import express from 'express';
+import path from 'path';
+
+const app: express.Express = express();
+const port: number = Number(process.env.PORT) || 3000;
 
 // 提供静态文件
 app.use(express.static(path.join(__dirname, 'build')));
 
 // 所有请求都返回index.html
-app.get('*', (req, res) => {
+app.get('*', (req: express.Request, res: express.Response) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 

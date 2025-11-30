@@ -30,11 +30,11 @@ export const Account: React.FC = () => {
                   <h2>Login to Your Account</h2>
                   <div className="form-group">
                     <label htmlFor="login-email">Email</label>
-                    <input type="email" id="login-email" required />
+                    <input type="email" id="login-email" autoComplete="username" required />
                   </div>
                   <div className="form-group">
                     <label htmlFor="login-password">Password</label>
-                    <input type="password" id="login-password" required />
+                    <input type="password" id="login-password" autoComplete="current-password" required />
                   </div>
                   <div className="form-actions">
                     <button type="submit" className="btn btn-primary">Login</button>
@@ -58,11 +58,11 @@ export const Account: React.FC = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="register-password">Password</label>
-                    <input type="password" id="register-password" required />
+                    <input type="password" id="register-password" autoComplete="new-password" required />
                   </div>
                   <div className="form-group">
                     <label htmlFor="register-confirm-password">Confirm Password</label>
-                    <input type="password" id="register-confirm-password" required />
+                    <input type="password" id="register-confirm-password" autoComplete="new-password" required />
                   </div>
                   <div className="form-actions">
                     <button type="submit" className="btn btn-primary">Register</button>
