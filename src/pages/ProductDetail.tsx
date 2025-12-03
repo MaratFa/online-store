@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { products } from '../data';
+import { useAppDispatch } from '../store/hooks';
+import { addToCart } from '../store/slices/cartSlice';
 import './ProductDetail.css';
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [quantity, setQuantity] = useState<number>(1);
   const [activeTab, setActiveTab] = useState<'description' | 'reviews'>('description');
+  const dispatch = useAppDispatch();
 
   // Find the product by ID
   const product = products.find(p => p.id === parseInt(id || '0'));
@@ -28,8 +31,10 @@ export const ProductDetail: React.FC = () => {
   };
 
   const handleAddToCart = () => {
-    // In a real app, this would add to cart state or API
-    alert(`Added ${quantity} × ${product.name} to cart!`);
+    // Add product to cart
+    for (let i = 0; i < quantity; i++) {
+      dispatch(addToCart(product));
+    }
   };
 
   const renderStars = (rating: number) => {
