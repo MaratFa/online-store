@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { products } from '../data';
+import { ProductCard } from '../components';
 import './Home.css';
 
 export const Home: React.FC = () => {
@@ -19,7 +21,12 @@ export const Home: React.FC = () => {
         <div className="container">
           <h2>Featured Products</h2>
           <div className="products-grid">
-            {/* Product cards will be added here */}
+            {products.slice(0, 4).map(product => (
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+              />
+            ))}
           </div>
         </div>
       </section>

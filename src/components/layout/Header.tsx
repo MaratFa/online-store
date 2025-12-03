@@ -42,10 +42,10 @@ export const Header: React.FC = () => {
             <button className="search-btn">
               <i className="fas fa-search"></i>
             </button>
-            <button className="cart-btn">
+            <Link to="/cart" className="cart-btn">
               <i className="fas fa-shopping-cart"></i>
               <span className="cart-count">0</span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Products.css';
 import { products as allProducts, categories, Product } from '../data';
 
@@ -55,33 +56,35 @@ export const Products: React.FC = () => {
             )
             .map(product => (
             <div key={product.id} className="product-card">
-              <div className="product-image">
-                <img src={product.image} alt={product.name} />
-              </div>
-              <div className="product-info">
-                <div className="product-category">{product.category}</div>
-                <h3 className="product-title">{product.name}</h3>
-                <div className="product-rating">
-                  <div className="stars">
-                    {[...Array(Math.floor(product.rating))].map((_, i) => (
-                      <i key={i} className="fas fa-star"></i>
-                    ))}
-                    {product.rating % 1 !== 0 && <i className="fas fa-star-half-alt"></i>}
+              <Link to={`/product/${product.id}`} className="product-link">
+                <div className="product-image">
+                  <img src={product.image} alt={product.name} />
+                </div>
+                <div className="product-info">
+                  <div className="product-category">{product.category}</div>
+                  <h3 className="product-title">{product.name}</h3>
+                  <div className="product-rating">
+                    <div className="stars">
+                      {[...Array(Math.floor(product.rating))].map((_, i) => (
+                        <i key={i} className="fas fa-star"></i>
+                      ))}
+                      {product.rating % 1 !== 0 && <i className="fas fa-star-half-alt"></i>}
+                    </div>
+                    <span className="rating-value">({product.reviews})</span>
                   </div>
-                  <span className="rating-value">({product.reviews})</span>
+                  <div className="product-price">
+                    {product.discountPrice ? (
+                      <>
+                        <span className="original-price">${product.price}</span>
+                        <span className="current-price">${product.discountPrice}</span>
+                      </>
+                    ) : (
+                      <span className="current-price">${product.price}</span>
+                    )}
+                  </div>
                 </div>
-                <div className="product-price">
-                  {product.discountPrice ? (
-                    <>
-                      <span className="original-price">${product.price}</span>
-                      <span className="current-price">${product.discountPrice}</span>
-                    </>
-                  ) : (
-                    <span className="current-price">${product.price}</span>
-                  )}
-                </div>
-                <button className="add-to-cart-btn">Add to Cart</button>
-              </div>
+              </Link>
+              <button className="add-to-cart-btn">Add to Cart</button>
             </div>
           ))}
         </div>

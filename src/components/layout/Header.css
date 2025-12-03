@@ -59,16 +59,21 @@ header {
   gap: 1rem;
 }
 
-.header-actions button {
+.header-actions button,
+.header-actions a.cart-btn {
   background: none;
   border: none;
   color: var(--text-color);
   font-size: 1.2rem;
   cursor: pointer;
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
-.header-actions button:hover {
+.header-actions button:hover,
+.header-actions a.cart-btn:hover {
   color: var(--primary-color);
 }
 
