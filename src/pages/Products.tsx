@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import {
+  filterByCategory,
+  searchProducts,
+  sortProducts
+} from '../store/slices/productsSlice';
+import { addToCart } from '../store/slices/cartSlice';
+import { Product } from '../data';
 import './Products.css';
-import { products as allProducts, categories, Product } from '../data';
 
 export const Products: React.FC = () => {
-  const [products] = useState<Product[]>(allProducts);
-  const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const dispatch = useAppDispatch();
+  const {
+    filteredProducts,
+    categories,
+    selectedCategory,
+    searchTerm,
+    sortBy
+  } = useAppSelector(state => state.products);
 
   return (
     <div className="products-page">
@@ -16,11 +28,11 @@ export const Products: React.FC = () => {
           <div className="product-controls">
             <div className="filter-controls">
               <div className="search-box">
-                <input 
-                  type="text" 
-                  placeholder="Search products..." 
+                <input
+                  type="text"
+                  placeholder="Search products..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => dispatch(searchProducts(e.target.value))}
                 />
                 <button className="search-btn">
                   <i className="fas fa-search"></i>
@@ -28,10 +40,10 @@ export const Products: React.FC = () => {
               </div>
               <div className="filter-buttons">
                 {categories.map(category => (
-                  <button 
-                    key={category} 
-                    className={`filter-btn ${activeCategory === category ? 'active' : ''}`}
-                    onClick={() => setActiveCategory(category)}
+                  <button
+                    key={category}
+                    className={`filter-btn ${selectedCategory === category ? 'active' : ''}`}
+                    onClick={() => dispatch(filterByCategory(category))}
                   >
                     {category}
                   </button>
@@ -39,22 +51,22 @@ export const Products: React.FC = () => {
               </div>
             </div>
             <div className="sort-controls">
-              <select className="sort-select">
+              <select
+                className="sort-select"
+                value={sortBy}
+                onChange={(e) => dispatch(sortProducts(e.target.value))}
+              >
                 <option value="featured">Featured</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
+                <option value="price-low-high">Price: Low to High</option>
+                <option value="price-high-low">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
               </select>
             </div>
           </div>
         </div>
 
         <div className="products-grid">
-          {products
-            .filter(product => 
-              (activeCategory === 'All' || product.category === activeCategory) &&
-              product.name.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            .map(product => (
+          {filteredProducts.map(product => (
             <div key={product.id} className="product-card">
               <Link to={`/product/${product.id}`} className="product-link">
                 <div className="product-image">
@@ -84,7 +96,10 @@ export const Products: React.FC = () => {
                   </div>
                 </div>
               </Link>
-              <button className="add-to-cart-btn">Add to Cart</button>
+              <button className="add-to-cart-btn" onClick={() => {
+                console.log('Adding to cart:', product);
+                dispatch(addToCart(product));
+              }}>Add to Cart</button>
             </div>
           ))}
         </div>

@@ -1,52 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { products, Product } from '../data';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { removeFromCart, updateQuantity, clearCart } from '../store/slices/cartSlice';
 import './Cart.css';
 
-interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
 export const Cart: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [cartTotal, setCartTotal] = useState<number>(0);
-
-  useEffect(() => {
-    // In a real app, you would fetch cart items from an API or local storage
-    // For demo purposes, we'll use some sample cart items
-    const sampleCartItems: CartItem[] = [
-      { product: products[0], quantity: 1 },
-      { product: products[2], quantity: 2 }
-    ];
-    setCartItems(sampleCartItems);
-  }, []);
-
-  useEffect(() => {
-    // Calculate total price
-    const total = cartItems.reduce((sum, item) => {
-      const price = item.product.discountPrice || item.product.price;
-      return sum + (price * item.quantity);
-    }, 0);
-    setCartTotal(total);
-  }, [cartItems]);
+  const { items, totalAmount, totalItems } = useAppSelector(state => state.cart);
+  const dispatch = useAppDispatch();
 
   const handleQuantityChange = (id: number, newQuantity: number) => {
     if (newQuantity <= 0) {
-      // Remove item from cart if quantity is 0
-      setCartItems(cartItems.filter(item => item.product.id !== id));
+      dispatch(removeFromCart(id));
     } else {
-      // Update quantity
-      setCartItems(cartItems.map(item => 
-        item.product.id === id 
-          ? { ...item, quantity: newQuantity }
-          : item
-      ));
+      dispatch(updateQuantity({ id, quantity: newQuantity }));
     }
   };
 
   const handleRemoveItem = (id: number) => {
-    setCartItems(cartItems.filter(item => item.product.id !== id));
+    dispatch(removeFromCart(id));
+  };
+
+  const handleClearCart = () => {
+    if (window.confirm('Are you sure you want to clear your cart?')) {
+      dispatch(clearCart());
+    }
   };
 
   const handleCheckout = () => {
@@ -54,14 +31,22 @@ export const Cart: React.FC = () => {
     alert('Proceeding to checkout...');
   };
 
+  const tax = totalAmount * 0.08;
+  const shipping = totalAmount > 100 ? 0 : 10; // Free shipping for orders over $100
+  const finalTotal = totalAmount + tax + shipping;
+
   return (
     <div className="cart-page">
       <div className="container">
-        <h1>Shopping Cart</h1>
+        <h1>Shopping Cart ({totalItems} {totalItems === 1 ? 'item' : 'items'})</h1>
 
-        {cartItems.length === 0 ? (
+        {items.length === 0 ? (
           <div className="empty-cart">
-            <p>Your cart is empty</p>
+            <div className="empty-cart-icon">
+              <i className="fas fa-shopping-cart"></i>
+            </div>
+            <h2>Your cart is empty</h2>
+            <p>Looks like you haven't added anything to your cart yet.</p>
             <Link to="/products" className="continue-shopping-btn">
               Continue Shopping
             </Link>
@@ -69,46 +54,62 @@ export const Cart: React.FC = () => {
         ) : (
           <div className="cart-content">
             <div className="cart-items">
-              {cartItems.map(item => (
-                <div key={item.product.id} className="cart-item">
+              <div className="cart-header">
+                <h3>Products</h3>
+                <button className="clear-cart-btn" onClick={handleClearCart}>
+                  Clear Cart
+                </button>
+              </div>
+
+              {items.map(item => (
+                <div key={item.id} className="cart-item">
                   <div className="item-image">
-                    <img src={item.product.image} alt={item.product.name} />
+                    <img src={item.image} alt={item.name} />
                   </div>
 
                   <div className="item-details">
-                    <Link to={`/product/${item.product.id}`} className="item-name">
-                      {item.product.name}
+                    <Link to={`/product/${item.id}`} className="item-name">
+                      {item.name}
                     </Link>
-                    <p className="item-category">{item.product.category}</p>
+                    <p className="item-category">{item.category}</p>
+                    <p className="item-stock">In Stock: {item.stock}</p>
+                    {item.discountPrice && (
+                      <div className="item-discount">
+                        <span className="original-price">${item.price}</span>
+                        <span className="discount-badge">Save ${(item.price - item.discountPrice).toFixed(2)}</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="item-price">
-                    ${item.product.discountPrice || item.product.price}
+                    ${item.discountPrice || item.price}
                   </div>
 
                   <div className="item-quantity">
-                    <button 
+                    <button
                       className="quantity-btn"
-                      onClick={() => handleQuantityChange(item.product.id, item.quantity - 1)}
+                      onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                      disabled={item.quantity <= 1}
                     >
                       -
                     </button>
                     <span className="quantity-value">{item.quantity}</span>
-                    <button 
+                    <button
                       className="quantity-btn"
-                      onClick={() => handleQuantityChange(item.product.id, item.quantity + 1)}
+                      onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                      disabled={item.quantity >= item.stock}
                     >
                       +
                     </button>
                   </div>
 
                   <div className="item-total">
-                    ${(item.product.discountPrice || item.product.price) * item.quantity}
+                    ${(item.discountPrice || item.price) * item.quantity}
                   </div>
 
-                  <button 
+                  <button
                     className="remove-item-btn"
-                    onClick={() => handleRemoveItem(item.product.id)}
+                    onClick={() => handleRemoveItem(item.id)}
                   >
                     <i className="fas fa-trash"></i>
                   </button>
@@ -121,22 +122,34 @@ export const Cart: React.FC = () => {
 
               <div className="summary-row">
                 <span>Subtotal</span>
-                <span>${cartTotal.toFixed(2)}</span>
+                <span>${totalAmount.toFixed(2)}</span>
               </div>
 
               <div className="summary-row">
                 <span>Shipping</span>
-                <span>Free</span>
+                <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
               </div>
 
               <div className="summary-row">
                 <span>Tax</span>
-                <span>${(cartTotal * 0.08).toFixed(2)}</span>
+                <span>${tax.toFixed(2)}</span>
               </div>
+
+              {totalAmount > 100 && (
+                <div className="summary-row discount">
+                  <span>Free Shipping Applied</span>
+                  <span>-$10.00</span>
+                </div>
+              )}
 
               <div className="summary-row total">
                 <span>Total</span>
-                <span>${(cartTotal * 1.08).toFixed(2)}</span>
+                <span>${finalTotal.toFixed(2)}</span>
+              </div>
+
+              <div className="promo-code">
+                <input type="text" placeholder="Promo code" />
+                <button className="apply-btn">Apply</button>
               </div>
 
               <button className="checkout-btn" onClick={handleCheckout}>

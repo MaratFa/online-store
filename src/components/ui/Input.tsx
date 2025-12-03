@@ -14,6 +14,7 @@ interface InputProps {
   error?: boolean;
   helperText?: string;
   label?: string;
+  autoComplete?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -29,6 +30,7 @@ export const Input: React.FC<InputProps> = ({
   error = false,
   helperText,
   label,
+  autoComplete,
   ...rest
 }) => {
   const inputClasses = `input ${error ? 'input-error' : ''} ${className}`.trim();
@@ -51,6 +53,7 @@ export const Input: React.FC<InputProps> = ({
         name={name}
         required={required}
         disabled={disabled}
+        autoComplete={autoComplete}
         {...rest}
       />
       {helperText && (

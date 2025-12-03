@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { logout } from '../../store/slices/userSlice';
 import './Header.css';
 
 export const Header: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const { isAuthenticated, user } = useAppSelector(state => state.user);
+  const { totalItems } = useAppSelector(state => state.cart);
+  const dispatch = useAppDispatch();
+  
+  // Debug cart count
+  console.log('Header rendering. Cart items:', totalItems);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Check if user is logged in
-    const userEmail = localStorage.getItem('userEmail');
-    setIsLoggedIn(userEmail !== null);
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('userEmail');
-    setIsLoggedIn(false);
+    localStorage.removeItem('userName');
+    dispatch(logout());
     navigate('/');
   };
   return (
@@ -28,7 +30,7 @@ export const Header: React.FC = () => {
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/products">Products</Link></li>
-              {isLoggedIn ? (
+              {isAuthenticated ? (
                 <>
                   <li><Link to="/dashboard">Dashboard</Link></li>
                   <li><button onClick={handleLogout} className="logout-btn">Logout</button></li>
@@ -44,7 +46,7 @@ export const Header: React.FC = () => {
             </button>
             <Link to="/cart" className="cart-btn">
               <i className="fas fa-shopping-cart"></i>
-              <span className="cart-count">0</span>
+              <span className="cart-count">{totalItems || 0}</span>
             </Link>
           </div>
         </div>

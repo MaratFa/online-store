@@ -1,66 +1,69 @@
 import React, { useState } from 'react';
+import { Input } from '../components/ui/Input';
+import { Button } from '../components/ui/Button';
 import './Account.css';
 
 export const Account: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
   const [loginMessage, setLoginMessage] = useState<string>('');
   const [registerMessage, setRegisterMessage] = useState<string>('');
+  
+  // Login form state
+  const [loginEmail, setLoginEmail] = useState<string>('');
+  const [loginPassword, setLoginPassword] = useState<string>('');
+  
+  // Register form state
+  const [registerName, setRegisterName] = useState<string>('');
+  const [registerEmail, setRegisterEmail] = useState<string>('');
+  const [registerPassword, setRegisterPassword] = useState<string>('');
+  const [registerConfirmPassword, setRegisterConfirmPassword] = useState<string>('');
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    // Get form values
-    const email = (document.getElementById('login-email') as HTMLInputElement).value;
-    const password = (document.getElementById('login-password') as HTMLInputElement).value;
-    
+
     // Simple validation
-    if (!email || !password) {
+    if (!loginEmail || !loginPassword) {
       setLoginMessage('Please fill in all fields');
       return;
     }
-    
+
     // For demo purposes, we'll just show a success message
     // In a real app, you would send this to a server
-    setLoginMessage(`Login successful! Welcome ${email}`);
-    
-    // Store user email in localStorage to simulate authentication
-    localStorage.setItem('userEmail', email);
-    
+    setLoginMessage(`Login successful! Welcome ${loginEmail}`);
+
+    // Store user email and name in localStorage to simulate authentication
+    localStorage.setItem('userEmail', loginEmail);
+    localStorage.setItem('userName', loginEmail.split('@')[0]); // Use part of email as name
+
     // Redirect to dashboard after successful login
     setTimeout(() => {
       window.location.href = '/dashboard';
     }, 1500);
-    
+
     // In a real app, you might redirect the user or update the UI state
-    console.log('Login attempt with:', { email, password });
+    console.log('Login attempt with:', { email: loginEmail, password: loginPassword });
   };
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    // Get form values
-    const name = (document.getElementById('register-name') as HTMLInputElement).value;
-    const email = (document.getElementById('register-email') as HTMLInputElement).value;
-    const password = (document.getElementById('register-password') as HTMLInputElement).value;
-    const confirmPassword = (document.getElementById('register-confirm-password') as HTMLInputElement).value;
-    
+
     // Simple validation
-    if (!name || !email || !password || !confirmPassword) {
+    if (!registerName || !registerEmail || !registerPassword || !registerConfirmPassword) {
       setRegisterMessage('Please fill in all fields');
       return;
     }
-    
-    if (password !== confirmPassword) {
+
+    if (registerPassword !== registerConfirmPassword) {
       setRegisterMessage('Passwords do not match');
       return;
     }
-    
+
     // For demo purposes, we'll just show a success message
     // In a real app, you would send this to a server
-    setRegisterMessage(`Registration successful! Welcome ${name}`);
-    
+    setRegisterMessage(`Registration successful! Welcome ${registerName}`);
+
     // In a real app, you might redirect the user or update the UI state
-    console.log('Registration attempt with:', { name, email, password });
+    console.log('Registration attempt with:', { name: registerName, email: registerEmail, password: registerPassword });
   };
 
   return (
@@ -68,13 +71,13 @@ export const Account: React.FC = () => {
       <div className="container">
         <div className="account-form-container">
           <div className="account-tabs">
-            <button 
+            <button
               className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`}
               onClick={() => setActiveTab('login')}
             >
               Login
             </button>
-            <button 
+            <button
               className={`tab-btn ${activeTab === 'register' ? 'active' : ''}`}
               onClick={() => setActiveTab('register')}
             >
@@ -88,16 +91,26 @@ export const Account: React.FC = () => {
                 <form className="account-form" onSubmit={handleLogin}>
                   <h2>Login to Your Account</h2>
                   {loginMessage && <div className="form-message">{loginMessage}</div>}
-                  <div className="form-group">
-                    <label htmlFor="login-email">Email</label>
-                    <input type="email" id="login-email" autoComplete="username" required />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="login-password">Password</label>
-                    <input type="password" id="login-password" autoComplete="current-password" required />
-                  </div>
+                  <Input
+                    type="email"
+                    id="login-email"
+                    label="Email"
+                    value={loginEmail}
+                    onChange={(e) => setLoginEmail(e.target.value)}
+                    autoComplete="username"
+                    required
+                  />
+                  <Input
+                    type="password"
+                    id="login-password"
+                    label="Password"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    autoComplete="current-password"
+                    required
+                  />
                   <div className="form-actions">
-                    <button type="submit" className="btn btn-primary">Login</button>
+                    <Button type="submit" variant="primary">Login</Button>
                     <a href="#" className="forgot-password">Forgot Password?</a>
                   </div>
                 </form>
@@ -109,24 +122,42 @@ export const Account: React.FC = () => {
                 <form className="account-form" onSubmit={handleRegister}>
                   <h2>Create an Account</h2>
                   {registerMessage && <div className="form-message">{registerMessage}</div>}
-                  <div className="form-group">
-                    <label htmlFor="register-name">Full Name</label>
-                    <input type="text" id="register-name" required />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="register-email">Email</label>
-                    <input type="email" id="register-email" required />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="register-password">Password</label>
-                    <input type="password" id="register-password" autoComplete="new-password" required />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="register-confirm-password">Confirm Password</label>
-                    <input type="password" id="register-confirm-password" autoComplete="new-password" required />
-                  </div>
+                  <Input
+                    type="text"
+                    id="register-name"
+                    label="Full Name"
+                    value={registerName}
+                    onChange={(e) => setRegisterName(e.target.value)}
+                    required
+                  />
+                  <Input
+                    type="email"
+                    id="register-email"
+                    label="Email"
+                    value={registerEmail}
+                    onChange={(e) => setRegisterEmail(e.target.value)}
+                    required
+                  />
+                  <Input
+                    type="password"
+                    id="register-password"
+                    label="Password"
+                    value={registerPassword}
+                    onChange={(e) => setRegisterPassword(e.target.value)}
+                    autoComplete="new-password"
+                    required
+                  />
+                  <Input
+                    type="password"
+                    id="register-confirm-password"
+                    label="Confirm Password"
+                    value={registerConfirmPassword}
+                    onChange={(e) => setRegisterConfirmPassword(e.target.value)}
+                    autoComplete="new-password"
+                    required
+                  />
                   <div className="form-actions">
-                    <button type="submit" className="btn btn-primary">Register</button>
+                    <Button type="submit" variant="primary">Register</Button>
                   </div>
                 </form>
               </div>
