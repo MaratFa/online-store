@@ -1,6 +1,6 @@
 # Online Store - React Application
 
-A modern, responsive e-commerce platform built with React, TypeScript, and CSS. This application showcases a clean design with intuitive user interface and comprehensive shopping functionality.
+A modern, responsive e-commerce platform built with React, TypeScript, and Redux Toolkit. This application showcases a clean design with intuitive user interface and comprehensive shopping functionality, featuring a robust API fallback mechanism for seamless operation even when the backend is unavailable.
 
 ## ✨ Features
 
@@ -13,6 +13,8 @@ A modern, responsive e-commerce platform built with React, TypeScript, and CSS. 
 - 💰 **Discount Pricing**: Clear display of original and discounted prices
 - 🎨 **Modern UI**: Beautiful interface with smooth transitions and hover effects
 - 🧩 **Component Architecture**: Well-organized, reusable UI components
+- 🔄 **API Fallback System**: Automatic fallback to mock data when backend is unavailable
+- 🚀 **Development Mode**: Seamless development experience with mock data by default
 
 ## 🛠️ Technologies Used
 
@@ -20,6 +22,7 @@ A modern, responsive e-commerce platform built with React, TypeScript, and CSS. 
 - TypeScript for type safety
 - React Router for client-side routing
 - Redux Toolkit for state management
+- Axios for API communication with fallback mechanism
 - CSS3 with custom properties for styling
 - Font Awesome for icons
 - Express.js for production server
@@ -43,9 +46,21 @@ online-store-free/
 │   │   ├── Cart.tsx       # Shopping cart page
 │   │   ├── Account.tsx    # Account login/registration
 │   │   └── Dashboard.tsx  # User dashboard
+│   ├── services/          # API services
+│   │   ├── api.ts         # Original API implementation
+│   │   ├── apiWithFallback.ts # API with fallback to mock data
+│   │   └── mockApi.ts     # Mock API implementation
 │   ├── store/             # Redux store configuration
-│   │   ├── cartSlice.ts   # Cart state management
-│   │   └── store.ts       # Redux store setup
+│   │   ├── slices/        # Redux slices
+│   │   │   ├── cartSlice.ts    # Cart state management
+│   │   │   ├── productsSlice.ts # Products state management
+│   │   │   └── userSlice.ts    # User state management
+│   │   ├── thunks/       # Redux thunks
+│   │   │   ├── authThunks.ts   # Authentication actions
+│   │   │   ├── cartThunks.ts    # Cart actions
+│   │   │   └── productsThunks.ts # Products actions
+│   │   ├── hooks.ts      # Custom Redux hooks
+│   │   └── index.ts      # Store configuration
 │   ├── data.ts            # Product data
 │   ├── App.tsx            # Main app component with routing
 │   ├── App.css            # App styles
@@ -142,6 +157,25 @@ The application follows a modular component structure:
 - **Product Components**: Product-specific components like ProductCard
 
 All components are organized in their respective directories with index files for clean imports.
+
+## 🔄 API Fallback Mechanism
+
+The application includes a robust API fallback system that ensures smooth operation even when the backend is unavailable:
+
+- **Automatic Detection**: The system automatically detects when the backend is not responding
+- **Seamless Transition**: Switches to mock data without user interruption
+- **Development Mode**: Uses mock data by default in development for faster development
+- **Type Safety**: All mock data is properly typed to match the real API responses
+- **Consistent Interface**: The same API interface is used regardless of whether real or mock data is being used
+
+### How It Works
+
+1. When the application starts, it tries to connect to the backend API
+2. If any request fails (connection refused), the response interceptor:
+   - Logs a warning message
+   - Switches to mock API mode
+   - Returns appropriate mock data based on the request URL and method
+3. Once switched to mock mode, all subsequent requests use mock data
 
 ## 🎨 Customization
 
@@ -253,11 +287,15 @@ This project is licensed under the MIT License.
 
 Potential improvements for future versions:
 
-- Backend integration with API endpoints
 - Real-time inventory management
 - Advanced search with filters
 - Customer reviews system
 - Wishlist functionality
 - Order tracking
 - Payment gateway integration
+- Product comparison feature
+- Social login integration
+- Multi-language support
+- Advanced analytics dashboard
+- Automated testing suite
 - Admin dashboard for product management
