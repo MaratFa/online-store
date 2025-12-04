@@ -22,14 +22,18 @@ const api = axios.create({
 });
 
 // Flag to determine if we should use mock API
-let useMockApi = false;
+// Initialize based on environment variable or default to true for development
+let useMockApi = process.env.REACT_APP_USE_MOCK_API === 'true' || process.env.NODE_ENV === 'development';
 
 // Request interceptor to add auth token
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    // If we're using mock API, don't make the request
     if (useMockApi) {
-      // Cancel the request if we're using mock API
-      return Promise.reject(new Error('Using mock API'));
+      // Return a special error that will be caught by the response interceptor
+      const error = new Error('Using mock API') as any;
+      error.config = config;
+      return Promise.reject(error);
     }
 
     const token = localStorage.getItem('token');
@@ -55,9 +59,13 @@ const callMockApi = async <T = any>(url: string, method: string, data?: any) => 
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
+    // Handle both network errors and mock API mode
     if (error.code === 'ECONNREFUSED' || error.code === 'ERR_NETWORK' || error.message === 'Using mock API') {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
+      // Only log the warning if we're not already in mock mode
+      if (!useMockApi) {
+        console.warn('Backend not available, switching to mock API');
+        useMockApi = true;
+      }
       
       // Get the URL and method from the error config
       const url = error.config?.url || '';
@@ -141,9 +149,8 @@ export const productAPI = {
     try {
       return await api.get('/products');
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi('/products', 'GET');
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
   getById: async (id: string) => {
@@ -154,9 +161,8 @@ export const productAPI = {
     try {
       return await api.get(`/products/${id}`);
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi(`/products/${id}`, 'GET');
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
   getByCategory: async (category: string) => {
@@ -167,9 +173,8 @@ export const productAPI = {
     try {
       return await api.get(`/products?category=${category}`);
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi(`/products?category=${category}`, 'GET');
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
   search: async (query: string) => {
@@ -180,9 +185,8 @@ export const productAPI = {
     try {
       return await api.get(`/products/search?q=${query}`);
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi(`/products/search?q=${query}`, 'GET');
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
 };
@@ -196,9 +200,8 @@ export const authAPI = {
     try {
       return await api.post<AuthResponse>('/auth/login', credentials);
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi<AuthResponse>('/auth/login', 'POST', credentials);
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
   register: async (userData: { name: string; email: string; password: string }) => {
@@ -209,9 +212,8 @@ export const authAPI = {
     try {
       return await api.post<AuthResponse>('/auth/register', userData);
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi<AuthResponse>('/auth/register', 'POST', userData);
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
   logout: async () => {
@@ -235,9 +237,8 @@ export const authAPI = {
     try {
       return await api.get<AuthResponse['user']>('/auth/me');
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi<AuthResponse['user']>('/auth/me', 'GET');
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
 };
@@ -251,9 +252,8 @@ export const cartAPI = {
     try {
       return await api.get('/cart');
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi('/cart', 'GET');
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
   add: async (productId: number) => {
@@ -264,9 +264,8 @@ export const cartAPI = {
     try {
       return await api.post('/cart', { productId });
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi('/cart', 'POST', { productId });
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
   update: async (itemId: string, quantity: number) => {
@@ -277,9 +276,8 @@ export const cartAPI = {
     try {
       return await api.put(`/cart/${itemId}`, { quantity });
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi(`/cart/${itemId}`, 'PUT', { quantity });
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
   remove: async (itemId: string) => {
@@ -290,9 +288,8 @@ export const cartAPI = {
     try {
       return await api.delete(`/cart/${itemId}`);
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi(`/cart/${itemId}`, 'DELETE');
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
   clear: async () => {
@@ -303,9 +300,8 @@ export const cartAPI = {
     try {
       return await api.delete('/cart');
     } catch (error) {
-      console.warn('Backend not available, switching to mock API');
-      useMockApi = true;
-      return callMockApi('/cart', 'DELETE');
+      // The response interceptor will handle the fallback
+      throw error;
     }
   },
 };
