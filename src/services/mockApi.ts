@@ -1,4 +1,4 @@
-import { products } from '../data';
+import { products } from "../data";
 
 // Type definitions
 interface AuthResponse {
@@ -24,7 +24,6 @@ export const mockApi = {
   getProducts: () => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        console.log('Mock API: Returning products', products);
         resolve(products);
       }, 500); // Simulate network delay
     });
@@ -34,11 +33,11 @@ export const mockApi = {
   getProductById: (id: number) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const product = products.find(p => p.id === id);
+        const product = products.find((p) => p.id === id);
         if (product) {
           resolve(product);
         } else {
-          reject(new Error('Product not found'));
+          reject(new Error("Product not found"));
         }
       }, 500);
     });
@@ -48,10 +47,10 @@ export const mockApi = {
   getProductsByCategory: (category: string) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        if (category === 'All') {
+        if (category === "All") {
           resolve(products);
         } else {
-          resolve(products.filter(p => p.category === category));
+          resolve(products.filter((p) => p.category === category));
         }
       }, 500);
     });
@@ -61,7 +60,7 @@ export const mockApi = {
   searchProducts: (query: string) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const filtered = products.filter(p =>
+        const filtered = products.filter((p) =>
           p.name.toLowerCase().includes(query.toLowerCase())
         );
         resolve(filtered);
@@ -76,7 +75,7 @@ export const mockApi = {
         resolve({
           items: [],
           totalAmount: 0,
-          totalItems: 0
+          totalItems: 0,
         });
       }, 500);
     });
@@ -88,7 +87,7 @@ export const mockApi = {
         resolve({
           items: [],
           totalAmount: 0,
-          totalItems: 0
+          totalItems: 0,
         });
       }, 500);
     });
@@ -100,7 +99,7 @@ export const mockApi = {
         resolve({
           items: [],
           totalAmount: 0,
-          totalItems: 0
+          totalItems: 0,
         });
       }, 500);
     });
@@ -112,7 +111,7 @@ export const mockApi = {
         resolve({
           items: [],
           totalAmount: 0,
-          totalItems: 0
+          totalItems: 0,
         });
       }, 500);
     });
@@ -124,7 +123,7 @@ export const mockApi = {
         resolve({
           items: [],
           totalAmount: 0,
-          totalItems: 0
+          totalItems: 0,
         });
       }, 500);
     });
@@ -135,17 +134,17 @@ export const mockApi = {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simple mock authentication
-        if (email === 'user@example.com' && password === 'password') {
+        if (email === "user@example.com" && password === "password") {
           resolve({
             user: {
-              id: '1',
-              email: 'user@example.com',
-              name: 'John Doe'
+              id: "1",
+              email: "user@example.com",
+              name: "John Doe",
             },
-            token: 'mock-jwt-token'
+            token: "mock-jwt-token",
           });
         } else {
-          reject(new Error('Invalid credentials'));
+          reject(new Error("Invalid credentials"));
         }
       }, 500);
     });
@@ -158,14 +157,14 @@ export const mockApi = {
         if (userData.email && userData.password) {
           resolve({
             user: {
-              id: '2',
+              id: "2",
               email: userData.email,
-              name: userData.name
+              name: userData.name,
             },
-            token: 'mock-jwt-token'
+            token: "mock-jwt-token",
           });
         } else {
-          reject(new Error('Invalid registration data'));
+          reject(new Error("Invalid registration data"));
         }
       }, 500);
     });
@@ -183,9 +182,9 @@ export const mockApi = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
-          id: '1',
-          email: 'user@example.com',
-          name: 'John Doe'
+          id: "1",
+          email: "user@example.com",
+          name: "John Doe",
         });
       }, 500);
     });
@@ -197,81 +196,81 @@ export const mockApi = {
       setTimeout(() => {
         resolve([
           {
-            id: 'ORD001',
+            id: "ORD001",
             date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-            status: 'delivered',
+            status: "delivered",
             items: [
               {
-                id: '1',
-                name: 'Wireless Bluetooth Headphones',
+                id: "1",
+                name: "Wireless Bluetooth Headphones",
                 price: 59.99,
                 quantity: 1,
-                image: '/images/headphones.jpg'
-              }
+                image: "/images/headphones.jpg",
+              },
             ],
             total: 59.99,
             shippingAddress: {
-              street: '123 Main St',
-              city: 'New York',
-              state: 'NY',
-              zipCode: '10001',
-              country: 'USA'
+              street: "123 Main St",
+              city: "New York",
+              state: "NY",
+              zipCode: "10001",
+              country: "USA",
             },
-            paymentMethod: 'Credit Card'
+            paymentMethod: "Credit Card",
           },
           {
-            id: 'ORD002',
+            id: "ORD002",
             date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-            status: 'shipped',
+            status: "shipped",
             items: [
               {
-                id: '2',
-                name: 'Smart Watch',
+                id: "2",
+                name: "Smart Watch",
                 price: 199.99,
                 quantity: 1,
-                image: '/images/smartwatch.jpg'
+                image: "/images/smartwatch.jpg",
               },
               {
-                id: '3',
-                name: 'Phone Case',
+                id: "3",
+                name: "Phone Case",
                 price: 14.99,
                 quantity: 2,
-                image: '/images/phonecase.jpg'
-              }
+                image: "/images/phonecase.jpg",
+              },
             ],
             total: 229.97,
             shippingAddress: {
-              street: '456 Oak Ave',
-              city: 'Los Angeles',
-              state: 'CA',
-              zipCode: '90001',
-              country: 'USA'
+              street: "456 Oak Ave",
+              city: "Los Angeles",
+              state: "CA",
+              zipCode: "90001",
+              country: "USA",
             },
-            paymentMethod: 'PayPal'
+            paymentMethod: "PayPal",
           },
           {
-            id: 'ORD003',
+            id: "ORD003",
             date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-            status: 'processing',
+            status: "processing",
             items: [
               {
-                id: '4',
-                name: 'Laptop Stand',
+                id: "4",
+                name: "Laptop Stand",
                 price: 39.99,
                 quantity: 1,
-                image: '/images/laptopstand.jpg'
-              }
+                image: "/images/laptopstand.jpg",
+              },
             ],
             total: 39.99,
             shippingAddress: {
-              street: '789 Pine St',
-              city: 'Chicago',
-              state: 'IL',
-              zipCode: '60007',
-              country: 'USA'
+              street: "789 Pine St",
+              city: "Chicago",
+              state: "IL",
+              zipCode: "60007",
+              country: "USA",
             },
-            paymentMethod: 'Credit Card'
-          }
+            paymentMethod: "Credit Card",
+          },
         ]);
       }, 500);
     });
@@ -283,89 +282,89 @@ export const mockApi = {
         // Mock order data
         const orders = [
           {
-            id: 'ORD001',
+            id: "ORD001",
             date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-            status: 'delivered',
+            status: "delivered",
             items: [
               {
-                id: '1',
-                name: 'Wireless Bluetooth Headphones',
+                id: "1",
+                name: "Wireless Bluetooth Headphones",
                 price: 59.99,
                 quantity: 1,
-                image: '/images/headphones.jpg'
-              }
+                image: "/images/headphones.jpg",
+              },
             ],
             total: 59.99,
             shippingAddress: {
-              street: '123 Main St',
-              city: 'New York',
-              state: 'NY',
-              zipCode: '10001',
-              country: 'USA'
+              street: "123 Main St",
+              city: "New York",
+              state: "NY",
+              zipCode: "10001",
+              country: "USA",
             },
-            paymentMethod: 'Credit Card'
+            paymentMethod: "Credit Card",
           },
           {
-            id: 'ORD002',
+            id: "ORD002",
             date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-            status: 'shipped',
+            status: "shipped",
             items: [
               {
-                id: '2',
-                name: 'Smart Watch',
+                id: "2",
+                name: "Smart Watch",
                 price: 199.99,
                 quantity: 1,
-                image: '/images/smartwatch.jpg'
+                image: "/images/smartwatch.jpg",
               },
               {
-                id: '3',
-                name: 'Phone Case',
+                id: "3",
+                name: "Phone Case",
                 price: 14.99,
                 quantity: 2,
-                image: '/images/phonecase.jpg'
-              }
+                image: "/images/phonecase.jpg",
+              },
             ],
             total: 229.97,
             shippingAddress: {
-              street: '456 Oak Ave',
-              city: 'Los Angeles',
-              state: 'CA',
-              zipCode: '90001',
-              country: 'USA'
+              street: "456 Oak Ave",
+              city: "Los Angeles",
+              state: "CA",
+              zipCode: "90001",
+              country: "USA",
             },
-            paymentMethod: 'PayPal'
+            paymentMethod: "PayPal",
           },
           {
-            id: 'ORD003',
+            id: "ORD003",
             date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-            status: 'processing',
+            status: "processing",
             items: [
               {
-                id: '4',
-                name: 'Laptop Stand',
+                id: "4",
+                name: "Laptop Stand",
                 price: 39.99,
                 quantity: 1,
-                image: '/images/laptopstand.jpg'
-              }
+                image: "/images/laptopstand.jpg",
+              },
             ],
             total: 39.99,
             shippingAddress: {
-              street: '789 Pine St',
-              city: 'Chicago',
-              state: 'IL',
-              zipCode: '60007',
-              country: 'USA'
+              street: "789 Pine St",
+              city: "Chicago",
+              state: "IL",
+              zipCode: "60007",
+              country: "USA",
             },
-            paymentMethod: 'Credit Card'
-          }
+            paymentMethod: "Credit Card",
+          },
         ];
 
-        const order = orders.find(o => o.id === id);
+        const order = orders.find((o) => o.id === id);
 
         if (order) {
           resolve(order);
         } else {
-          reject(new Error('Order not found'));
+          reject(new Error("Order not found"));
         }
       }, 500);
     });
@@ -377,11 +376,11 @@ export const mockApi = {
         const newOrder = {
           id: `ORD${Math.floor(Math.random() * 1000)}`,
           date: new Date().toISOString(),
-          status: 'pending',
+          status: "pending",
           items: orderData.items,
           total: orderData.total,
           shippingAddress: orderData.shippingAddress,
-          paymentMethod: orderData.paymentMethod
+          paymentMethod: orderData.paymentMethod,
         };
         resolve(newOrder);
       }, 500);
@@ -396,28 +395,28 @@ export const mockApi = {
         const updatedOrder = {
           id,
           date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-          status: updateData.status || 'processing',
+          status: updateData.status || "processing",
           items: [
             {
-              id: '4',
-              name: 'Laptop Stand',
+              id: "4",
+              name: "Laptop Stand",
               price: 39.99,
               quantity: 1,
-              image: '/images/laptopstand.jpg'
-            }
+              image: "/images/laptopstand.jpg",
+            },
           ],
           total: 39.99,
           shippingAddress: {
-            street: '789 Pine St',
-            city: 'Chicago',
-            state: 'IL',
-            zipCode: '60007',
-            country: 'USA'
+            street: "789 Pine St",
+            city: "Chicago",
+            state: "IL",
+            zipCode: "60007",
+            country: "USA",
           },
-          paymentMethod: 'Credit Card'
+          paymentMethod: "Credit Card",
         };
         resolve(updatedOrder);
       }, 500);
     });
-  }
+  },
 };

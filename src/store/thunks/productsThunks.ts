@@ -1,62 +1,68 @@
-
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { productAPI } from '../../services/apiWithFallback';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { productAPI } from "../../services/apiWithFallback";
 
 // Async thunks for product-related operations
 export const fetchProducts = createAsyncThunk(
-  'products/fetchProducts',
+  "products/fetchProducts",
   async (_, { rejectWithValue }) => {
     try {
-      console.log('Thunk: Fetching products');
       const response = await productAPI.getAll();
-      console.log('Thunk: Received response', response);
-      
+
       // Ensure we always return a valid array
       if (!response.data) {
-        console.warn('Thunk: No data in response, returning empty array');
+        console.warn("Thunk: No data in response, returning empty array");
         return [];
       }
-      
+
       return response.data;
     } catch (error) {
-      console.error('Thunk: Error fetching products', error);
-      return rejectWithValue((error as any).response?.data?.message || 'Failed to fetch products');
+      console.error("Thunk: Error fetching products", error);
+      return rejectWithValue(
+        (error as any).response?.data?.message || "Failed to fetch products"
+      );
     }
   }
 );
 
 export const fetchProductById = createAsyncThunk(
-  'products/fetchProductById',
+  "products/fetchProductById",
   async (id: string, { rejectWithValue }) => {
     try {
       const response = await productAPI.getById(id);
       return response.data;
     } catch (error) {
-      return rejectWithValue((error as any).response?.data?.message || 'Failed to fetch product');
+      return rejectWithValue(
+        (error as any).response?.data?.message || "Failed to fetch product"
+      );
     }
   }
 );
 
 export const fetchProductsByCategory = createAsyncThunk(
-  'products/fetchProductsByCategory',
+  "products/fetchProductsByCategory",
   async (category: string, { rejectWithValue }) => {
     try {
       const response = await productAPI.getByCategory(category);
       return response.data;
     } catch (error) {
-      return rejectWithValue((error as any).response?.data?.message || 'Failed to fetch products by category');
+      return rejectWithValue(
+        (error as any).response?.data?.message ||
+          "Failed to fetch products by category"
+      );
     }
   }
 );
 
 export const searchProducts = createAsyncThunk(
-  'products/searchProducts',
+  "products/searchProducts",
   async (query: string, { rejectWithValue }) => {
     try {
       const response = await productAPI.search(query);
       return response.data;
     } catch (error) {
-      return rejectWithValue((error as any).response?.data?.message || 'Failed to search products');
+      return rejectWithValue(
+        (error as any).response?.data?.message || "Failed to search products"
+      );
     }
   }
 );

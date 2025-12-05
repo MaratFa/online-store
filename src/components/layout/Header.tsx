@@ -1,23 +1,21 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { logout } from '../../store/slices/userSlice';
-import './Header.css';
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { logout } from "../../store/slices/userSlice";
+import "./Header.css";
 
 export const Header: React.FC = () => {
-  const { isAuthenticated, user } = useAppSelector(state => state.user);
-  const { totalItems } = useAppSelector(state => state.cart);
+  const { isAuthenticated, user } = useAppSelector((state) => state.user);
+  const { totalItems } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
-  
-  // Debug cart count
-  console.log('Header rendering. Cart items:', totalItems);
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('userName');
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
     dispatch(logout());
-    navigate('/');
+    navigate("/");
   };
   return (
     <header className="header">
@@ -28,16 +26,30 @@ export const Header: React.FC = () => {
           </Link>
           <nav className="main-nav">
             <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/products">Products</Link></li>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/products">Products</Link>
+              </li>
               {isAuthenticated ? (
                 <>
-                  <li><Link to="/dashboard">Dashboard</Link></li>
-                  <li><Link to="/orders">Orders</Link></li>
-                  <li><button onClick={handleLogout} className="logout-btn">Logout</button></li>
+                  <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </li>
+                  <li>
+                    <Link to="/orders">Orders</Link>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout} className="logout-btn">
+                      Logout
+                    </button>
+                  </li>
                 </>
               ) : (
-                <li><Link to="/account">Account</Link></li>
+                <li>
+                  <Link to="/account">Account</Link>
+                </li>
               )}
             </ul>
           </nav>

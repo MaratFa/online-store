@@ -1,30 +1,38 @@
-import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 
 // Create axios instance
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000/api",
   timeout: 10000,
 });
 
 // Flag to determine if we should use mock API
 // Initialize based on environment variable or default to true for development
-let useMockApi = process.env.REACT_APP_USE_MOCK_API === 'true' || process.env.NODE_ENV === 'development';
+let useMockApi =
+  process.env.REACT_APP_USE_MOCK_API === "true" ||
+  process.env.NODE_ENV === "development";
 
 // Import mock API
-import { mockApi } from './mockApi';
+import { mockApi } from "./mockApi";
 
 // Helper function to directly call mock API
-const callMockApi = async <T = any>(url: string, method: string, data?: any) => {
-  console.log('Mock API: Calling', url, method);
+const callMockApi = async <T = any>(
+  url: string,
+  method: string,
+  data?: any
+) => {
   const mockData = await getMockDataForUrl(url, method, data);
-  console.log('Mock API: Received data', mockData);
-  
+
   // Ensure we always return a valid response
-  if (mockData === null && url.includes('/products')) {
-    console.warn('Mock API: Returning empty products array as fallback');
+  if (mockData === null && url.includes("/products")) {
+    console.warn("Mock API: Returning empty products array as fallback");
     return { data: [] as T };
   }
-  
+
   return { data: mockData as T };
 };
 
@@ -33,16 +41,20 @@ api.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
     // Handle both network errors and mock API mode
-    if (error.code === 'ECONNREFUSED' || error.code === 'ERR_NETWORK' || error.message === 'Using mock API') {
+    if (
+      error.code === "ECONNREFUSED" ||
+      error.code === "ERR_NETWORK" ||
+      error.message === "Using mock API"
+    ) {
       // Only log the warning if we're not already in mock mode
       if (!useMockApi) {
-        console.warn('Backend not available, switching to mock API');
+        console.warn("Backend not available, switching to mock API");
         useMockApi = true;
       }
 
       // Get the URL and method from the error config
-      const url = error.config?.url || '';
-      const method = error.config?.method?.toUpperCase() || 'GET';
+      const url = error.config?.url || "";
+      const method = error.config?.method?.toUpperCase() || "GET";
       const data = error.config?.data;
 
       // Get mock data based on the URL and method
@@ -54,10 +66,10 @@ api.interceptors.response.use(
 
     if (error.response?.status === 401) {
       // Handle unauthorized access
-      localStorage.removeItem('token');
-      localStorage.removeItem('userEmail');
-      localStorage.removeItem('userName');
-      window.location.href = '/account';
+      localStorage.removeItem("token");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userName");
+      window.location.href = "/account";
     }
     return Promise.reject(error);
   }
@@ -69,12 +81,12 @@ api.interceptors.request.use(
     // If we're using mock API, don't make the request
     if (useMockApi) {
       // Return a special error that will be caught by the response interceptor
-      const error = new Error('Using mock API') as any;
+      const error = new Error("Using mock API") as any;
       error.config = config;
       return Promise.reject(error);
     }
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       if (config.headers) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -90,60 +102,64 @@ api.interceptors.request.use(
 // Helper function to get mock data based on the URL
 const getMockDataForUrl = async (url: string, method: string, data?: any) => {
   // Extract the endpoint from the URL
-  const endpoint = url.replace(process.env.REACT_APP_API_URL || 'http://localhost:5000/api', '');
+  const endpoint = url.replace(
+    process.env.REACT_APP_API_URL || "http://localhost:5000/api",
+    ""
+  );
 
   // Handle different endpoints
-  if (endpoint === '/products' || endpoint.startsWith('/products')) {
-    if (method === 'GET') {
-      if (endpoint.includes('/search')) {
-        const query = new URLSearchParams(url.split('?')[1]).get('q') || '';
+  if (endpoint === "/products" || endpoint.startsWith("/products")) {
+    if (method === "GET") {
+      if (endpoint.includes("/search")) {
+        const query = new URLSearchParams(url.split("?")[1]).get("q") || "";
         return mockApi.searchProducts(query);
-      } else if (endpoint.includes('?category=')) {
-        const category = new URLSearchParams(url.split('?')[1]).get('category') || '';
+      } else if (endpoint.includes("?category=")) {
+        const category =
+          new URLSearchParams(url.split("?")[1]).get("category") || "";
         return mockApi.getProductsByCategory(category);
-      } else if (endpoint !== '/products' && endpoint.includes('/')) {
-        const id = endpoint.split('/')[2];
+      } else if (endpoint !== "/products" && endpoint.includes("/")) {
+        const id = endpoint.split("/")[2];
         return mockApi.getProductById(parseInt(id));
       } else {
         return mockApi.getProducts();
       }
     }
-  } else if (endpoint === '/auth/login' && method === 'POST') {
+  } else if (endpoint === "/auth/login" && method === "POST") {
     return mockApi.login(data.email, data.password);
-  } else if (endpoint === '/auth/register' && method === 'POST') {
+  } else if (endpoint === "/auth/register" && method === "POST") {
     return mockApi.register(data);
-  } else if (endpoint === '/auth/logout' && method === 'POST') {
+  } else if (endpoint === "/auth/logout" && method === "POST") {
     return { success: true };
-  } else if (endpoint === '/auth/me' && method === 'GET') {
+  } else if (endpoint === "/auth/me" && method === "GET") {
     return mockApi.getCurrentUser();
-  } else if (endpoint === '/cart') {
-    if (method === 'GET') {
+  } else if (endpoint === "/cart") {
+    if (method === "GET") {
       return mockApi.getCart();
-    } else if (method === 'POST') {
+    } else if (method === "POST") {
       return mockApi.addToCart(data.productId);
-    } else if (method === 'DELETE') {
+    } else if (method === "DELETE") {
       return mockApi.clearCart();
     }
-  } else if (endpoint.startsWith('/cart/') && method === 'DELETE') {
-    const itemId = endpoint.split('/')[2];
+  } else if (endpoint.startsWith("/cart/") && method === "DELETE") {
+    const itemId = endpoint.split("/")[2];
     return mockApi.removeFromCart(itemId);
-  } else if (endpoint.startsWith('/cart/') && method === 'PUT') {
-    const itemId = endpoint.split('/')[2];
+  } else if (endpoint.startsWith("/cart/") && method === "PUT") {
+    const itemId = endpoint.split("/")[2];
     return mockApi.updateCartItem(itemId, data.quantity);
-  } else if (endpoint === '/orders' && method === 'GET') {
+  } else if (endpoint === "/orders" && method === "GET") {
     return mockApi.getAllOrders();
-  } else if (endpoint.startsWith('/orders/') && method === 'GET') {
-    const id = endpoint.split('/')[2];
+  } else if (endpoint.startsWith("/orders/") && method === "GET") {
+    const id = endpoint.split("/")[2];
     return mockApi.getOrderById(id);
-  } else if (endpoint === '/orders' && method === 'POST') {
+  } else if (endpoint === "/orders" && method === "POST") {
     return mockApi.createOrder(data);
-  } else if (endpoint.startsWith('/orders/') && method === 'PUT') {
-    const id = endpoint.split('/')[2];
+  } else if (endpoint.startsWith("/orders/") && method === "PUT") {
+    const id = endpoint.split("/")[2];
     return mockApi.updateOrder(id, data);
   }
 
   // Default fallback - return empty array for products endpoint
-  if (endpoint === '/products') {
+  if (endpoint === "/products") {
     return [];
   }
   return null;
@@ -153,7 +169,7 @@ const getMockDataForUrl = async (url: string, method: string, data?: any) => {
 export interface OrderResponse {
   id: string;
   date: string;
-  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   items: Array<{
     id: string;
     name: string;
@@ -175,11 +191,11 @@ export interface OrderResponse {
 export const orderAPI = {
   getAll: async () => {
     if (useMockApi) {
-      return callMockApi<OrderResponse[]>('/orders', 'GET');
+      return callMockApi<OrderResponse[]>("/orders", "GET");
     }
 
     try {
-      return await api.get<OrderResponse[]>('/orders');
+      return await api.get<OrderResponse[]>("/orders");
     } catch (error) {
       // The response interceptor will handle the fallback
       throw error;
@@ -188,7 +204,7 @@ export const orderAPI = {
 
   getById: async (id: string) => {
     if (useMockApi) {
-      return callMockApi<OrderResponse>(`/orders/${id}`, 'GET');
+      return callMockApi<OrderResponse>(`/orders/${id}`, "GET");
     }
 
     try {
@@ -201,11 +217,11 @@ export const orderAPI = {
 
   create: async (orderData: any) => {
     if (useMockApi) {
-      return callMockApi<OrderResponse>('/orders', 'POST', orderData);
+      return callMockApi<OrderResponse>("/orders", "POST", orderData);
     }
 
     try {
-      return await api.post<OrderResponse>('/orders', orderData);
+      return await api.post<OrderResponse>("/orders", orderData);
     } catch (error) {
       // The response interceptor will handle the fallback
       throw error;
@@ -214,7 +230,7 @@ export const orderAPI = {
 
   update: async (id: string, updateData: any) => {
     if (useMockApi) {
-      return callMockApi<OrderResponse>(`/orders/${id}`, 'PUT', updateData);
+      return callMockApi<OrderResponse>(`/orders/${id}`, "PUT", updateData);
     }
 
     try {
@@ -228,23 +244,22 @@ export const orderAPI = {
 
 export const productAPI = {
   getAll: async () => {
-    console.log('Product API: Getting all products, useMockApi:', useMockApi);
     if (useMockApi) {
-      return callMockApi('/products', 'GET');
+      return callMockApi("/products", "GET");
     }
 
     try {
-      return await api.get('/products');
+      return await api.get("/products");
     } catch (error) {
       // The response interceptor will handle the fallback
-      console.error('Product API: Error fetching products:', error);
+      console.error("Product API: Error fetching products:", error);
       throw error;
     }
   },
 
   getById: async (id: string) => {
     if (useMockApi) {
-      return callMockApi(`/products/${id}`, 'GET');
+      return callMockApi(`/products/${id}`, "GET");
     }
 
     try {
@@ -257,7 +272,7 @@ export const productAPI = {
 
   getByCategory: async (category: string) => {
     if (useMockApi) {
-      return callMockApi(`/products?category=${category}`, 'GET');
+      return callMockApi(`/products?category=${category}`, "GET");
     }
 
     try {
@@ -270,7 +285,7 @@ export const productAPI = {
 
   search: async (query: string) => {
     if (useMockApi) {
-      return callMockApi(`/products/search?q=${query}`, 'GET');
+      return callMockApi(`/products/search?q=${query}`, "GET");
     }
 
     try {
@@ -294,24 +309,28 @@ export interface AuthResponse {
 export const authAPI = {
   login: async (credentials: { email: string; password: string }) => {
     if (useMockApi) {
-      return callMockApi<AuthResponse>('/auth/login', 'POST', credentials);
+      return callMockApi<AuthResponse>("/auth/login", "POST", credentials);
     }
 
     try {
-      return await api.post<AuthResponse>('/auth/login', credentials);
+      return await api.post<AuthResponse>("/auth/login", credentials);
     } catch (error) {
       // The response interceptor will handle the fallback
       throw error;
     }
   },
 
-  register: async (userData: { name: string; email: string; password: string }) => {
+  register: async (userData: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
     if (useMockApi) {
-      return callMockApi<AuthResponse>('/auth/register', 'POST', userData);
+      return callMockApi<AuthResponse>("/auth/register", "POST", userData);
     }
 
     try {
-      return await api.post<AuthResponse>('/auth/register', userData);
+      return await api.post<AuthResponse>("/auth/register", userData);
     } catch (error) {
       // The response interceptor will handle the fallback
       throw error;
@@ -324,7 +343,7 @@ export const authAPI = {
     }
 
     try {
-      return await api.post('/auth/logout');
+      return await api.post("/auth/logout");
     } catch (error) {
       // The response interceptor will handle the fallback
       throw error;
@@ -333,11 +352,11 @@ export const authAPI = {
 
   getCurrentUser: async () => {
     if (useMockApi) {
-      return callMockApi<AuthResponse['user']>('/auth/me', 'GET');
+      return callMockApi<AuthResponse["user"]>("/auth/me", "GET");
     }
 
     try {
-      return await api.get<AuthResponse['user']>('/auth/me');
+      return await api.get<AuthResponse["user"]>("/auth/me");
     } catch (error) {
       // The response interceptor will handle the fallback
       throw error;
@@ -348,11 +367,11 @@ export const authAPI = {
 export const cartAPI = {
   get: async () => {
     if (useMockApi) {
-      return callMockApi('/cart', 'GET');
+      return callMockApi("/cart", "GET");
     }
 
     try {
-      return await api.get('/cart');
+      return await api.get("/cart");
     } catch (error) {
       // The response interceptor will handle the fallback
       throw error;
@@ -361,11 +380,11 @@ export const cartAPI = {
 
   add: async (productId: number) => {
     if (useMockApi) {
-      return callMockApi('/cart', 'POST', { productId });
+      return callMockApi("/cart", "POST", { productId });
     }
 
     try {
-      return await api.post('/cart', { productId });
+      return await api.post("/cart", { productId });
     } catch (error) {
       // The response interceptor will handle the fallback
       throw error;
@@ -374,7 +393,7 @@ export const cartAPI = {
 
   update: async (itemId: string, quantity: number) => {
     if (useMockApi) {
-      return callMockApi(`/cart/${itemId}`, 'PUT', { quantity });
+      return callMockApi(`/cart/${itemId}`, "PUT", { quantity });
     }
 
     try {
@@ -387,7 +406,7 @@ export const cartAPI = {
 
   remove: async (itemId: string) => {
     if (useMockApi) {
-      return callMockApi(`/cart/${itemId}`, 'DELETE');
+      return callMockApi(`/cart/${itemId}`, "DELETE");
     }
 
     try {
@@ -400,11 +419,11 @@ export const cartAPI = {
 
   clear: async () => {
     if (useMockApi) {
-      return callMockApi('/cart', 'DELETE');
+      return callMockApi("/cart", "DELETE");
     }
 
     try {
-      return await api.delete('/cart');
+      return await api.delete("/cart");
     } catch (error) {
       // The response interceptor will handle the fallback
       throw error;

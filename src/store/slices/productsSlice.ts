@@ -1,6 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Product } from '../../data';
-import { fetchProducts, fetchProductById, fetchProductsByCategory, searchProducts as searchProductsApi } from '../thunks';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Product } from "../../data";
+import {
+  fetchProducts,
+  fetchProductById,
+  fetchProductsByCategory,
+  searchProducts as searchProductsApi,
+} from "../thunks";
 
 interface ProductsState {
   products: Product[];
@@ -18,16 +23,16 @@ const initialState: ProductsState = {
   products: [],
   filteredProducts: [],
   categories: [],
-  selectedCategory: 'All',
-  searchTerm: '',
-  sortBy: 'featured',
+  selectedCategory: "All",
+  searchTerm: "",
+  sortBy: "featured",
   loading: false,
   error: null,
   currentProduct: null,
 };
 
 const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {
     setProducts: (state, action: PayloadAction<Product[]>) => {
@@ -40,17 +45,17 @@ const productsSlice = createSlice({
     filterByCategory: (state, action: PayloadAction<string>) => {
       state.selectedCategory = action.payload;
 
-      if (action.payload === 'All') {
+      if (action.payload === "All") {
         state.filteredProducts = state.products;
       } else {
         state.filteredProducts = state.products.filter(
-          product => product.category === action.payload
+          (product) => product.category === action.payload
         );
       }
 
       // Apply search filter if exists
       if (state.searchTerm) {
-        state.filteredProducts = state.filteredProducts.filter(product =>
+        state.filteredProducts = state.filteredProducts.filter((product) =>
           product.name.toLowerCase().includes(state.searchTerm.toLowerCase())
         );
       }
@@ -62,13 +67,16 @@ const productsSlice = createSlice({
       state.searchTerm = action.payload;
 
       // Start with all products or category-filtered products
-      let productsToFilter = state.selectedCategory === 'All'
-        ? state.products
-        : state.products.filter(product => product.category === state.selectedCategory);
+      let productsToFilter =
+        state.selectedCategory === "All"
+          ? state.products
+          : state.products.filter(
+              (product) => product.category === state.selectedCategory
+            );
 
       // Apply search filter
       if (action.payload) {
-        state.filteredProducts = productsToFilter.filter(product =>
+        state.filteredProducts = productsToFilter.filter((product) =>
           product.name.toLowerCase().includes(action.payload.toLowerCase())
         );
       } else {
@@ -97,21 +105,22 @@ const productsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state: any, action: any) => {
-        console.log('Slice: Received products', action.payload);
         state.loading = false;
-        
+
         // Handle null payload
         if (action.payload === null) {
           state.products = [];
           state.filteredProducts = [];
-          state.categories = ['All'];
+          state.categories = ["All"];
         } else {
           state.products = action.payload;
           state.filteredProducts = action.payload;
 
           // Extract unique categories
-          const uniqueCategories = Array.from(new Set(action.payload.map((product: any) => product.category)));
-          state.categories = ['All', ...uniqueCategories];
+          const uniqueCategories = Array.from(
+            new Set(action.payload.map((product: any) => product.category))
+          );
+          state.categories = ["All", ...uniqueCategories];
         }
       })
       .addCase(fetchProducts.rejected, (state: any, action: any) => {
@@ -169,20 +178,20 @@ const productsSlice = createSlice({
 // Helper function to apply sorting
 const applySorting = (state: ProductsState) => {
   switch (state.sortBy) {
-    case 'price-low-high':
-      state.filteredProducts.sort((a, b) =>
-        (a.discountPrice || a.price) - (b.discountPrice || b.price)
+    case "price-low-high":
+      state.filteredProducts.sort(
+        (a, b) => (a.discountPrice || a.price) - (b.discountPrice || b.price)
       );
       break;
-    case 'price-high-low':
-      state.filteredProducts.sort((a, b) =>
-        (b.discountPrice || b.price) - (a.discountPrice || a.price)
+    case "price-high-low":
+      state.filteredProducts.sort(
+        (a, b) => (b.discountPrice || b.price) - (a.discountPrice || a.price)
       );
       break;
-    case 'rating':
+    case "rating":
       state.filteredProducts.sort((a, b) => b.rating - a.rating);
       break;
-    case 'featured':
+    case "featured":
     default:
       // Keep original order for featured
       break;
