@@ -25,7 +25,7 @@ a {
 }
 
 a:hover {
-  color: var(--bg-primary);
+  color: rgb(220, 220, 255);
 }
 
 img {
