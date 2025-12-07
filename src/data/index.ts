@@ -3,3 +3,4 @@
 export * from './mocks';
 export * from './mappers';
 export * from './transformers';
+export { mockProducts } from './mocks';

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { products } from "../data";
+import { mockProducts as products } from "../data/mocks";
+import { Product } from "../types";
 import { ProductCard } from "../components";
 import "./Home.css";
 
@@ -21,7 +22,7 @@ export const Home: React.FC = () => {
         <div className="container">
           <h2>Featured Products</h2>
           <div className="products-grid">
-            {products.slice(0, 4).map((product) => (
+            {products.slice(0, 4).map((product: Product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

@@ -1,4 +1,5 @@
-import { products } from "../data";
+import { mockProducts as products } from "../data/mocks";
+import { Product } from "../types";
 
 // Type definitions
 interface AuthResponse {
@@ -33,7 +34,7 @@ export const mockApi = {
   getProductById: (id: number) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const product = products.find((p) => p.id === id);
+        const product = products.find((p: Product) => p.id === id);
         if (product) {
           resolve(product);
         } else {
@@ -50,7 +51,7 @@ export const mockApi = {
         if (category === "All") {
           resolve(products);
         } else {
-          resolve(products.filter((p) => p.category === category));
+          resolve(products.filter((p: Product) => p.category === category));
         }
       }, 500);
     });
@@ -60,7 +61,7 @@ export const mockApi = {
   searchProducts: (query: string) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const filtered = products.filter((p) =>
+        const filtered = products.filter((p: Product) =>
           p.name.toLowerCase().includes(query.toLowerCase())
         );
         resolve(filtered);

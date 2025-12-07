@@ -7,7 +7,7 @@ import {
   sortProducts,
 } from "../store/slices/productsSlice";
 import { addToCart } from "../store/slices/cartSlice";
-import { Product } from "../data";
+import { Product } from "../types";
 import { fetchProducts } from "../store/thunks";
 import { RatingStars } from "../components/ui/RatingStars";
 import { ProductPrice } from "../components/ui/ProductPrice";

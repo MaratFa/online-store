@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Product } from '../../data';
+import { Product } from '../../types';
 import './ProductCard.css';
 
 interface ProductCardProps {

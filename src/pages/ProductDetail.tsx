@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { products } from '../data';
+import { mockProducts as products } from '../data/mocks';
+import { Product } from '../types';
 import { useAppDispatch } from '../store/hooks';
 import { addToCart } from '../store/slices/cartSlice';
 import './ProductDetail.css';
@@ -12,7 +13,7 @@ export const ProductDetail: React.FC = () => {
   const dispatch = useAppDispatch();
 
   // Find the product by ID
-  const product = products.find(p => p.id === parseInt(id || '0'));
+  const product = products.find((p: Product) => p.id === parseInt(id || '0'));
 
   if (!product) {
     return (
@@ -250,9 +251,9 @@ export const ProductDetail: React.FC = () => {
           <div className="products-grid">
             {/* In a real app, these would be related products from the same category */}
             {products
-              .filter(p => p.category === product.category && p.id !== product.id)
+              .filter((p: Product) => p.category === product.category && p.id !== product.id)
               .slice(0, 4)
-              .map(relatedProduct => (
+              .map((relatedProduct: Product) => (
                 <div key={relatedProduct.id} className="product-card">
                   <div className="product-image">
                     <img src={relatedProduct.image} alt={relatedProduct.name} />

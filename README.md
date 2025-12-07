@@ -1,10 +1,10 @@
 # Online Store - React Application
 
-A modern, responsive e-commerce platform built with React, TypeScript, and Redux Toolkit. This application showcases a clean design with intuitive user interface and comprehensive shopping functionality, featuring a robust API fallback mechanism for seamless operation even when the backend is unavailable.
+A modern, responsive e-commerce platform built with React, TypeScript, and Redux Toolkit. This application showcases a clean design with intuitive user interface and comprehensive shopping functionality, featuring a robust API fallback mechanism for seamless operation even when backend is unavailable. The project has been optimized with consolidated data management and improved type safety.
 
 ## 🚀 Live Demo
 
-View the live application at: [https://your-app-url.vercel.app](https://your-app-url.vercel.app)
+View the live application at: https://online-store-free.vercel.app
 
 ## ✨ Features
 
@@ -19,6 +19,7 @@ View the live application at: [https://your-app-url.vercel.app](https://your-app
 - 🧩 **Component Architecture**: Well-organized, reusable UI components
 - 🔄 **API Fallback System**: Automatic fallback to mock data when backend is unavailable
 - 🚀 **Development Mode**: Seamless development experience with mock data by default
+- 📊 **Consolidated Data Management**: Centralized product data with proper type safety
 
 ## 🛠️ Technologies Used
 
@@ -34,38 +35,52 @@ View the live application at: [https://your-app-url.vercel.app](https://your-app
 ## 📁 Project Structure
 
 ```
-online-store-free/
+online-store/
 ├── public/                 # Static assets
 │   ├── images/            # Product images and assets
 │   └── index.html         # Main HTML file
 ├── src/                   # Source code
 │   ├── components/        # Reusable components
 │   │   ├── layout/        # Layout components (Header, Footer)
-│   │   ├── ui/            # UI components (Button, Input)
-│   │   └── product/       # Product-specific components
+│   │   ├── shared/        # Shared UI components (Button, Modal, etc.)
+│   │   ├── ui/           # UI components (Button, Input)
+│   │   └── product/      # Product-specific components
 │   ├── pages/             # Page components
 │   │   ├── Home.tsx       # Home page
 │   │   ├── Products.tsx   # Products listing page
 │   │   ├── ProductDetail.tsx # Product detail page
 │   │   ├── Cart.tsx       # Shopping cart page
 │   │   ├── Account.tsx    # Account login/registration
-│   │   └── Dashboard.tsx  # User dashboard
+│   │   ├── Dashboard.tsx  # User dashboard
+│   │   └── Orders.tsx     # User orders page
 │   ├── services/          # API services
-│   │   ├── api.ts         # Original API implementation
+│   │   ├── api/          # API service modules
 │   │   ├── apiWithFallback.ts # API with fallback to mock data
-│   │   └── mockApi.ts     # Mock API implementation
+│   │   └── mockApi.ts    # Mock API implementation
 │   ├── store/             # Redux store configuration
 │   │   ├── slices/        # Redux slices
 │   │   │   ├── cartSlice.ts    # Cart state management
 │   │   │   ├── productsSlice.ts # Products state management
-│   │   │   └── userSlice.ts    # User state management
+│   │   │   ├── userSlice.ts    # User state management
+│   │   │   └── ordersSlice.ts  # Orders state management
 │   │   ├── thunks/       # Redux thunks
 │   │   │   ├── authThunks.ts   # Authentication actions
 │   │   │   ├── cartThunks.ts    # Cart actions
-│   │   │   └── productsThunks.ts # Products actions
+│   │   │   ├── productsThunks.ts # Products actions
+│   │   │   └── orderThunks.ts  # Order actions
 │   │   ├── hooks.ts      # Custom Redux hooks
 │   │   └── index.ts      # Store configuration
-│   ├── data.ts            # Product data
+│   ├── data/              # Data management
+│   │   ├── mocks.ts       # Mock product data
+│   │   ├── mappers.ts     # Data transformation functions
+│   │   ├── transformers.ts # API response transformers
+│   │   └── index.ts       # Data exports
+│   ├── types/             # TypeScript type definitions
+│   │   ├── product.ts     # Product-related types
+│   │   ├── user.ts        # User-related types
+│   │   ├── cart.ts        # Cart-related types
+│   │   ├── order.ts       # Order-related types
+│   │   └── index.ts       # Type exports
 │   ├── App.tsx            # Main app component with routing
 │   ├── App.css            # App styles
 │   ├── index.tsx          # Entry point
@@ -84,10 +99,10 @@ online-store-free/
 
 ### Installation
 
-1. Clone the repository:
+1. Clone repository:
    ```bash
-   git clone https://github.com/MaratFa/online-store-free.git
-   cd online-store-free
+   git clone https://github.com/your-repo/online-store.git
+   cd online-store
    ```
 
 2. Install dependencies:
@@ -100,7 +115,7 @@ online-store-free/
    npm start
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to view the application in your browser.
+4. Open http://localhost:3000 to view the application in your browser.
 
 ### Building for Production
 
@@ -132,14 +147,14 @@ The application is configured to be easily deployed to Vercel:
    ```bash
    # Install Vercel CLI
    npm i -g vercel
-   
+
    # Login and deploy
    vercel login
    vercel --prod
    ```
 
 3. **Environment Variables**:
-   - Set `REACT_APP_API_URL` in Vercel dashboard if connecting to a real API
+   - Set `REACT_APP_API_URL` in the Vercel dashboard if connecting to a real API
    - Currently configured to use mock data in production
 
 ### Important Note
@@ -153,7 +168,7 @@ The application currently uses mock data for all environments to ensure smooth o
 - Navigate to the Products page to view all available items
 - Use the search bar to find specific products
 - Filter products by category using the category buttons
-- Sort products by price or featured status
+- Sort products by price, rating, or featured status
 
 ### Product Information
 
@@ -164,6 +179,7 @@ Each product card displays:
 - Rating and number of reviews
 - Original price (if discounted)
 - Discounted price (if applicable)
+- Stock status
 - "Add to Cart" button
 
 ### Shopping Cart
@@ -180,43 +196,21 @@ Each product card displays:
 - Access your dashboard after logging in
 - View order history and saved information
 
-### Component Architecture
+## 🔄 Data Management
 
-The application follows a modular component structure:
+The application uses a centralized data management approach:
 
-- **Layout Components**: Header and Footer for consistent page structure
-- **UI Components**: Reusable UI elements like Button and Input
-- **Product Components**: Product-specific components like ProductCard
-
-All components are organized in their respective directories with index files for clean imports.
-
-## 🔄 API Fallback Mechanism
-
-The application includes a robust API fallback system that ensures smooth operation even when the backend is unavailable:
-
-- **Automatic Detection**: The system automatically detects when the backend is not responding
-- **Seamless Transition**: Switches to mock data without user interruption
-- **Development Mode**: Uses mock data by default in development for faster development
-- **Type Safety**: All mock data is properly typed to match real API responses
-- **Consistent Interface**: The same API interface is used regardless of whether real or mock data is being used
-
-### How It Works
-
-1. When the application starts, it tries to connect to the backend API
-2. If any request fails (connection refused), the response interceptor:
-   - Logs a warning message
-   - Switches to mock API mode
-   - Returns appropriate mock data based on the request URL and method
-3. Once switched to mock mode, all subsequent requests use mock data
-
-## 🎨 Customization
+- **Mock Data**: All product data is centralized in `src/data/mocks.ts`
+- **Type Safety**: Product interfaces are defined in `src/types/product.ts`
+- **Data Transformation**: Mappers and transformers in `src/data/` handle data formatting
+- **API Fallback**: Automatic fallback to mock data when the backend is unavailable
 
 ### Adding New Products
 
 To add new products:
 
-1. Open `src/data.ts`
-2. Add a new product object to the `products` array with the following structure:
+1. Open `src/data/mocks.ts`
+2. Add a new product object to the `mockProducts` array with the following structure:
    ```typescript
    {
      id: number,              // Unique identifier
@@ -225,10 +219,13 @@ To add new products:
      price: number,           // Regular price
      discountPrice?: number,  // Optional discounted price
      image: string,           // Image path
+     images?: string[],        // Optional additional images
      category: string,        // Product category
      stock: number,           // Available stock
      rating: number,          // Average rating (1-5)
-     reviews: number          // Number of reviews
+     reviews: number,         // Number of reviews
+     featured?: boolean,      // Optional featured flag
+     tags?: string[]          // Optional tags for search
    }
    ```
 
@@ -238,7 +235,7 @@ To add new products:
 
 To add new product categories:
 
-1. Open `src/data.ts`
+1. Open `src/data/mocks.ts`
 2. Add a new category to the `categories` array:
    ```typescript
    export const categories = [
@@ -249,12 +246,15 @@ To add new product categories:
    ];
    ```
 
+## 🎨 Customization
+
 ### Creating New Components
 
 To add new components:
 
 1. Create a component file in the appropriate directory:
    - Layout components: `src/components/layout/`
+   - Shared UI components: `src/components/shared/`
    - UI components: `src/components/ui/`
    - Product components: `src/components/product/`
 
@@ -280,7 +280,7 @@ To add new components:
 
 The application uses CSS with custom properties for consistent theming:
 
-- Primary colors are defined in `index.css`
+- Primary colors are defined in `src/styles/variables.css`
 - Component-specific styles are in separate CSS files
 - Responsive design uses media queries
 
@@ -289,8 +289,8 @@ The application uses CSS with custom properties for consistent theming:
 To add new pages:
 
 1. Create a new component in `src/pages/`
-2. Add a route in `App.tsx`
-3. Add navigation links in `Header.tsx` if needed
+2. Add a route in `src/routes/Routes.tsx`
+3. Add navigation links in `src/components/layout/Header.tsx` if needed
 
 ## 🤝 Contributing
 
@@ -331,8 +331,10 @@ Potential improvements for future versions:
 - Advanced analytics dashboard
 - Automated testing suite
 
-## 🐛 Recent Fixes
+## 🐛 Recent Updates
 
-- Fixed API connection issues by implementing mock data fallback for production
-- Resolved circular import issues in routes configuration
-- Improved deployment compatibility with platforms like Vercel
+- Consolidated product data in centralized location (`src/data/mocks.ts`)
+- Improved type safety by using a single Product interface from `src/types/product.ts`
+- Fixed import paths to use direct references to data files
+- Enhanced data management with proper separation of concerns
+- Improved component organization with shared UI components
