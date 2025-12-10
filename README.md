@@ -289,7 +289,7 @@ The application uses CSS with custom properties for consistent theming:
 To add new pages:
 
 1. Create a new component in `src/pages/`
-2. Add a route in `src/routes/Routes.tsx`
+2. Add a route in `src/routes/index.tsx`
 3. Add navigation links in `src/components/layout/Header.tsx` if needed
 
 ## 🤝 Contributing
