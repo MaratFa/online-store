@@ -1,6 +1,6 @@
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authAPI } from '../../services/apiWithFallback';
+import { userAPI } from '../../services/apiIntegration';
 
 // Type definitions
 interface AuthResponse {
@@ -18,7 +18,7 @@ export const loginUser = createAsyncThunk(
   'auth/login',
   async (credentials: { email: string; password: string }, { rejectWithValue }) => {
     try {
-      const response = await authAPI.login(credentials);
+      const response = await userAPI.login(credentials.email, credentials.password);
       // Cast response data to AuthResponse
       const authData = response.data as AuthResponse;
       // Store token in localStorage
@@ -36,7 +36,7 @@ export const registerUser = createAsyncThunk(
   'auth/register',
   async (userData: { name: string; email: string; password: string }, { rejectWithValue }) => {
     try {
-      const response = await authAPI.register(userData);
+      const response = await userAPI.register(userData);
       // Cast response data to AuthResponse
       const authData = response.data as AuthResponse;
       // Store token in localStorage
@@ -54,7 +54,7 @@ export const logoutUser = createAsyncThunk(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
-      await authAPI.logout();
+      // No API call needed for logout in our implementation
       // Clear localStorage
       localStorage.removeItem('token');
       localStorage.removeItem('userEmail');
@@ -74,7 +74,8 @@ export const fetchCurrentUser = createAsyncThunk(
   'auth/fetchCurrentUser',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await authAPI.getCurrentUser();
+      const token = localStorage.getItem('token') || '';
+      const response = await userAPI.getProfile(token);
       // Cast response data to User type
       return response.data as AuthResponse['user'];
     } catch (error) {
