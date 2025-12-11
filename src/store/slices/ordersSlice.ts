@@ -57,7 +57,7 @@ const ordersSlice = createSlice({
       })
       .addCase(fetchOrders.fulfilled, (state, action) => {
         state.loading = false;
-        ordersAdapter.setAll(state, action.payload);
+        ordersAdapter.setAll(state, action.payload || []);
       })
       .addCase(fetchOrders.rejected, (state, action) => {
         state.loading = false;
@@ -72,7 +72,7 @@ const ordersSlice = createSlice({
       })
       .addCase(getOrderById.fulfilled, (state, action) => {
         state.loading = false;
-        state.currentOrder = action.payload;
+        state.currentOrder = action.payload || null;
       })
       .addCase(getOrderById.rejected, (state, action) => {
         state.loading = false;
@@ -87,7 +87,7 @@ const ordersSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.loading = false;
-        ordersAdapter.addOne(state, action.payload);
+        ordersAdapter.addOne(state, action.payload || {});
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;
@@ -103,7 +103,7 @@ const ordersSlice = createSlice({
       .addCase(cancelOrder.fulfilled, (state, action) => {
         state.loading = false;
         ordersAdapter.updateOne(state, {
-          id: action.payload.id,
+          id: action.payload?.id || "",
           changes: { status: 'cancelled' },
         });
       })
