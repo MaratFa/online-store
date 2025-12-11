@@ -23,6 +23,16 @@ export const fetchProductById = async (id: number) => {
   }
 };
 
+export const getProductsByCategory = async (category: string) => {
+  try {
+    const response = await axios.get(`${API_URL}/products/category/${category}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching products by category:', error);
+    throw error;
+  }
+};
+
 export const searchProducts = async (query: string) => {
   try {
     const response = await axios.get(`${API_URL}/products/search?q=${query}`);
