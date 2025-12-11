@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { productAPI } from "../../services/apiWithFallback";
+import { productAPI } from "../../services/apiIntegration";
 
 // Async thunks for product-related operations
 export const fetchProducts = createAsyncThunk(
@@ -9,7 +9,7 @@ export const fetchProducts = createAsyncThunk(
       const response = await productAPI.getAll();
 
       // Ensure we always return a valid array
-      if (!response.data) {
+      if (!response || !response.data) {
         console.warn("Thunk: No data in response, returning empty array");
         return [];
       }
@@ -28,8 +28,8 @@ export const fetchProductById = createAsyncThunk(
   "products/fetchProductById",
   async (id: number, { rejectWithValue }) => {
     try {
-      const response = await productAPI.getById(id.toString());
-      return response.data;
+      const response = await productAPI.getById(id);
+      return response?.data || null;
     } catch (error) {
       return rejectWithValue(
         (error as any).response?.data?.message || "Failed to fetch product"
@@ -43,7 +43,7 @@ export const fetchProductsByCategory = createAsyncThunk(
   async (category: string, { rejectWithValue }) => {
     try {
       const response = await productAPI.getByCategory(category);
-      return response.data;
+      return response?.data || [];
     } catch (error) {
       return rejectWithValue(
         (error as any).response?.data?.message ||
@@ -58,7 +58,7 @@ export const searchProducts = createAsyncThunk(
   async (query: string, { rejectWithValue }) => {
     try {
       const response = await productAPI.search(query);
-      return response.data;
+      return response?.data || [];
     } catch (error) {
       return rejectWithValue(
         (error as any).response?.data?.message || "Failed to search products"
