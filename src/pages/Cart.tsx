@@ -104,7 +104,7 @@ export const Cart: React.FC = () => {
                   </div>
 
                   <div className="item-total">
-                    ${(item.discountPrice || item.price) * item.quantity}
+                    ${((item.discountPrice || item.price) * item.quantity).toFixed(2)}
                   </div>
 
                   <button
