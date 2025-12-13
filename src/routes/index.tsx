@@ -12,6 +12,8 @@ export const AppRoutes: React.FC = () => {
       <Route path="/product/:id" element={<ProductDetail />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/account" element={<Account />} />
+      <Route path="/profile" element={<Account />} />
+      <Route path="/wishlist" element={<Account />} />
       <Route path="/orders" element={
         <ProtectedRoute>
           <Orders />

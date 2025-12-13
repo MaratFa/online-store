@@ -2,3 +2,4 @@
 export * from './cartSlice';
 export * from './productsSlice';
 export * from './userSlice';
+export * from './ordersSlice';
