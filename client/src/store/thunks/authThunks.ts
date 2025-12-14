@@ -9,6 +9,7 @@ interface AuthResponse {
     id: string;
     email: string;
     name: string;
+    role?: string;
     avatar?: string;
   };
 }
@@ -25,6 +26,7 @@ export const loginUser = createAsyncThunk(
       localStorage.setItem('token', authData.token);
       localStorage.setItem('userEmail', authData.user.email);
       localStorage.setItem('userName', authData.user.name);
+      localStorage.setItem('userRole', authData.user.role || 'user');
       return authData;
     } catch (error) {
       return rejectWithValue((error as any).response?.data?.message || 'Login failed');
@@ -43,6 +45,7 @@ export const registerUser = createAsyncThunk(
       localStorage.setItem('token', authData.token);
       localStorage.setItem('userEmail', authData.user.email);
       localStorage.setItem('userName', authData.user.name);
+      localStorage.setItem('userRole', authData.user.role || 'user');
       return authData;
     } catch (error) {
       return rejectWithValue((error as any).response?.data?.message || 'Registration failed');
@@ -59,12 +62,14 @@ export const logoutUser = createAsyncThunk(
       localStorage.removeItem('token');
       localStorage.removeItem('userEmail');
       localStorage.removeItem('userName');
+      localStorage.removeItem('userRole');
       return true;
     } catch (error) {
       // Even if API call fails, clear local storage
       localStorage.removeItem('token');
       localStorage.removeItem('userEmail');
       localStorage.removeItem('userName');
+      localStorage.removeItem('userRole');
       return rejectWithValue((error as any).response?.data?.message || 'Logout failed');
     }
   }
@@ -77,7 +82,12 @@ export const fetchCurrentUser = createAsyncThunk(
       const token = localStorage.getItem('token') || '';
       const response = await userAPI.getProfile(token);
       // Cast response data to User type
-      return response.data as AuthResponse['user'];
+      const userData = response.data as AuthResponse['user'];
+      // Update localStorage with user role
+      if (userData.role) {
+        localStorage.setItem('userRole', userData.role);
+      }
+      return userData;
     } catch (error) {
       return rejectWithValue((error as any).response?.data?.message || 'Failed to fetch user');
     }

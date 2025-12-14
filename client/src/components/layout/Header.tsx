@@ -15,6 +15,7 @@ export const Header: React.FC = () => {
   const handleLogout = () => {
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userName");
+    localStorage.removeItem("userRole");
     dispatch(logout());
     navigate("/");
   };
@@ -38,6 +39,11 @@ export const Header: React.FC = () => {
                   <li>
                     <Link to="/dashboard">Dashboard</Link>
                   </li>
+                  {user?.role === "admin" && (
+                    <li>
+                      <Link to="/admin">Admin</Link>
+                    </li>
+                  )}
                   <li>
                     <Link to="/orders">Orders</Link>
                   </li>

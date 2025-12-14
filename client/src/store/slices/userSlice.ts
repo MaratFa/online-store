@@ -5,6 +5,7 @@ interface User {
   id: string;
   email: string;
   name: string;
+  role?: string;
   avatar?: string;
 }
 
@@ -16,8 +17,13 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: null,
-  isAuthenticated: false,
+  user: localStorage.getItem('token') ? {
+    id: '',
+    email: localStorage.getItem('userEmail') || '',
+    name: localStorage.getItem('userName') || '',
+    role: localStorage.getItem('userRole') || 'user',
+  } : null,
+  isAuthenticated: !!localStorage.getItem('token'),
   loading: false,
   error: null,
 };
@@ -35,6 +41,10 @@ const userSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
       state.error = null;
+      // Update localStorage with user role
+      if (action.payload.role) {
+        localStorage.setItem('userRole', action.payload.role);
+      }
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -48,6 +58,10 @@ const userSlice = createSlice({
     updateUserProfile: (state, action: PayloadAction<Partial<User>>) => {
       if (state.user) {
         state.user = { ...state.user, ...action.payload };
+        // Update localStorage if role is updated
+        if (action.payload.role) {
+          localStorage.setItem('userRole', action.payload.role);
+        }
       }
     },
     clearError: (state) => {

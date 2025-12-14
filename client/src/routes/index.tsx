@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Home, Products, ProductDetail, Cart, Account, Dashboard, Orders } from '../pages';
+import { Home, Products, ProductDetail, Cart, Account, Dashboard, AdminDashboard, Orders } from '../pages';
 import { ProtectedRoute } from './ProtectedRoute';
+import { AdminRoute } from './AdminRoute';
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -23,6 +24,11 @@ export const AppRoutes: React.FC = () => {
         <ProtectedRoute>
           <Dashboard />
         </ProtectedRoute>
+      } />
+      <Route path="/admin" element={
+        <AdminRoute>
+          <AdminDashboard />
+        </AdminRoute>
       } />
     </Routes>
   );

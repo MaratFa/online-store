@@ -19,12 +19,32 @@
       "destination": "/server/server.js"
     },
     {
+      "source": "/static/js/(.*)",
+      "destination": "/static/js/$1"
+    },
+    {
+      "source": "/static/css/(.*)",
+      "destination": "/static/css/$1"
+    },
+    {
+      "source": "/static/media/(.*)",
+      "destination": "/static/media/$1"
+    },
+    {
+      "source": "/manifest.json",
+      "destination": "/manifest.json"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.ico"
+    },
+    {
       "source": "/(.*)",
-      "destination": "/client/index.html"
+      "destination": "/index.html"
     }
   ],
   "installCommand": "npm install",
-  "buildCommand": "npm run build",
+  "buildCommand": "cd client && npm run build",
   "outputDirectory": "client/build",
   "framework": "create-react-app"
 }
