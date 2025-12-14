@@ -26,8 +26,5 @@
       "src": "/(.*)",
       "dest": "/client/build/index.html"
     }
-  ],
-  "installCommand": "npm install",
-  "buildCommand": "cd client && npm run build",
-  "outputDirectory": "client/build"
+  ]
 }
