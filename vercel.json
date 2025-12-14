@@ -23,20 +23,12 @@
       "destination": "/static/$1"
     },
     {
-      "source": "/manifest.json",
-      "destination": "/manifest.json"
-    },
-    {
-      "source": "/favicon.ico",
-      "destination": "/favicon.ico"
-    },
-    {
-      "source": "/((?!api/).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ],
   "installCommand": "npm install",
-  "buildCommand": "cd client && npm run build && cp -r build/* ../",
-  "outputDirectory": ".",
+  "buildCommand": "cd client && npm run build",
+  "outputDirectory": "client/build",
   "framework": "create-react-app"
 }
