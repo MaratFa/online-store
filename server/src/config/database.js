@@ -1,12 +1,12 @@
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(
-  process.env.PG_DB,
-  process.env.PG_USER,
-  process.env.PG_PASSWORD,
+  process.env.PG_DB || "online_store",
+  process.env.PG_USER || "postgres",
+  process.env.PG_PASSWORD || "7o3o18",
   {
-    host: process.env.PG_HOST,
-    port: process.env.PG_PORT,
+    host: process.env.PG_HOST || "localhost",
+    port: process.env.PG_PORT || 5432,
     dialect: 'postgres',
     logging: process.env.NODE_ENV === 'development' ? console.log : false,
     pool: {

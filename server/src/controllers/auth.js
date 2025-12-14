@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const { User } = require('../models');
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 
@@ -30,7 +30,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
 
   // Check for user
-  const user = await User.findOne({ email }).select('+password');
+  const user = await User.findOne({ where: { email } });
 
   if (!user) {
     return next(new ErrorResponse('Invalid credentials', 401));
@@ -60,7 +60,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 // @route   GET /api/v1/auth/me
 // @access  Private
 exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findByPk(req.user.id);
 
   res.status(200).json({
     success: true,
@@ -77,14 +77,14 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
     email: req.body.email,
   };
 
-  const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
-    new: true,
-    runValidators: true,
+  const user = await User.update(fieldsToUpdate, {
+    where: { id: req.user.id },
+    returning: true,
   });
 
   res.status(200).json({
     success: true,
-    data: user,
+    data: user[1][0],
   });
 });
 
@@ -92,7 +92,7 @@ exports.updateDetails = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/v1/auth/updatepassword
 // @access  Private
 exports.updatePassword = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id).select('+password');
+  const user = await User.findByPk(req.user.id);
 
   // Check current password
   if (!(await user.matchPassword(req.body.currentPassword))) {
@@ -109,7 +109,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 // @route   POST /api/v1/auth/forgotpassword
 // @access  Public
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
-  const user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ where: { email: req.body.email } });
 
   if (!user) {
     return next(new ErrorResponse('There is no user with that email', 404));
