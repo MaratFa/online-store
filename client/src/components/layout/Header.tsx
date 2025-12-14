@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { logout } from "../../store/slices/userSlice";
 import "./Header.css";
+import "./HeaderResponsive.css";
 
 export const Header: React.FC = () => {
   const { isAuthenticated, user } = useAppSelector((state) => state.user);

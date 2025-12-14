@@ -3,7 +3,7 @@
 export const config = {
   // API configuration
   api: {
-    baseUrl: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+    baseUrl: process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '/api/v1' : 'http://localhost:5000/api/v1'),
     timeout: 10000,
   },
 
