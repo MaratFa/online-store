@@ -5,12 +5,6 @@ const app = require('./src/app');
 // Load environment variables
 dotenv.config({ path: './.env' });
 
-// Log environment variables for debugging
-console.log('PG_USER:', process.env.PG_USER);
-console.log('PG_PASSWORD:', process.env.PG_PASSWORD);
-console.log('PG_DB:', process.env.PG_DB);
-console.log('PG_HOST:', process.env.PG_HOST);
-console.log('PG_PORT:', process.env.PG_PORT);
 
 // Connect to database and sync models
 sequelize.authenticate()

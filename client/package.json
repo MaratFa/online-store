@@ -27,6 +27,7 @@
     "eject": "react-scripts eject",
     "serve": "ts-node serve.ts"
   },
+  "homepage": ".",
   "browserslist": {
     "production": [
       ">0.2%",

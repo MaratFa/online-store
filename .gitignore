@@ -3,6 +3,8 @@ client/node_modules
 client/build
 client/.env
 
+# Root environment file
+.env
 
 
 # server
