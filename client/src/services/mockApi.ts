@@ -135,7 +135,7 @@ export const mockApi = {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simple mock authentication
-        if (email === "user@example.com" && password === "password") {
+        if (email === "user@example.com" && password === "user123") {
           resolve({
             user: {
               id: "1",

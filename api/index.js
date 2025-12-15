@@ -1,0 +1,17 @@
+const dotenv = require('dotenv');
+const path = require('path');
+
+// Load environment variables from the server directory
+dotenv.config({ path: path.join(__dirname, '../server/.env') });
+
+// Import the app after loading environment variables
+const app = require('../server/src/app');
+
+// Export the serverless handler
+module.exports = (req, res) => {
+  // Set NODE_ENV to production for serverless functions
+  process.env.NODE_ENV = 'production';
+  
+  // Handle the request with the Express app
+  return app(req, res);
+};

@@ -1,0 +1,43 @@
+.health-check-loading {
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  text-align: center;
+  font-style: italic;
+  color: #6c757d;
+}
+
+.health-check-alert {
+  padding: 16px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.health-check-alert h4 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.health-check-alert p {
+  margin-bottom: 8px;
+}
+
+.health-check-success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.health-check-error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.error-details {
+  font-family: monospace;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  border-radius: 4px;
+  overflow-wrap: break-word;
+}

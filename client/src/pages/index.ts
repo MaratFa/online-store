@@ -6,3 +6,4 @@ export { Dashboard } from './Dashboard';
 export { AdminDashboard } from './AdminDashboard';
 export { Orders } from './Orders';
 export { Products } from './Products';
+export { default as HealthCheckPage } from './HealthCheckPage';

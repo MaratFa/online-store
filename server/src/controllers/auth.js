@@ -143,5 +143,12 @@ const sendTokenResponse = (user, statusCode, res) => {
   res.status(statusCode).json({
     success: true,
     token,
+    user: {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      avatar: user.avatar
+    }
   });
 };

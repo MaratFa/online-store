@@ -12,8 +12,12 @@ const products = require('./routes/products');
 const categories = require('./routes/categories');
 const cart = require('./routes/cart');
 const orders = require('./routes/orders');
+const { checkHealth } = require('./routes/health');
 
 const app = express();
+
+// Trust proxy for rate limiting when behind a proxy (like in development)
+app.set('trust proxy', 1);
 
 // Body parser
 app.use(express.json());
@@ -60,6 +64,7 @@ app.use('/api/v1/products', products);
 app.use('/api/v1/categories', categories);
 app.use('/api/v1/cart', cart);
 app.use('/api/v1/orders', orders);
+app.get('/api/v1/health', checkHealth);
 
 // Error handler middleware
 app.use(errorHandler);

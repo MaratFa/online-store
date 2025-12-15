@@ -8,7 +8,7 @@ const {
   deleteProduct,
   getFeaturedProducts,
   getProductsByCategory
-} = require('../controllers/products');
+} = require('../controllers/products_new');
 const { protect, authorize } = require('../middleware/auth');
 
 router

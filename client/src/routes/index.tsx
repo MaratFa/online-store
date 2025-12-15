@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Home, Products, ProductDetail, Cart, Account, Dashboard, AdminDashboard, Orders } from '../pages';
+import { Home, Products, ProductDetail, Cart, Account, Dashboard, AdminDashboard, Orders, HealthCheckPage } from '../pages';
 import { ProtectedRoute } from './ProtectedRoute';
 import { AdminRoute } from './AdminRoute';
 
@@ -30,6 +30,7 @@ export const AppRoutes: React.FC = () => {
           <AdminDashboard />
         </AdminRoute>
       } />
+      <Route path="/health" element={<HealthCheckPage />} />
     </Routes>
   );
 };
