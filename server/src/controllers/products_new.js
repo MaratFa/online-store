@@ -6,6 +6,16 @@ const asyncHandler = require('../middleware/async');
 // @route   GET /api/v1/products
 // @access  Public
 exports.getProducts = asyncHandler(async (req, res, next) => {
+  // Return mock data if database is not connected
+  if (process.env.VERCEL) {
+    const mockProducts = require('../../../client/src/data/mocks').mockProducts;
+    return res.status(200).json({
+      success: true,
+      count: mockProducts.length,
+      data: mockProducts
+    });
+  }
+
   // Copy req.query
   const reqQuery = { ...req.query };
 

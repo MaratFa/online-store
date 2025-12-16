@@ -10,6 +10,7 @@ sequelize.authenticate().then(() => {
   console.log('Database connected successfully');
 }).catch(err => {
   console.error('Unable to connect to database:', err);
+  console.log('Running in demo mode without database');
 });
 
 // Import the app after loading environment variables

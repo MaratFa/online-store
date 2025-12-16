@@ -27,6 +27,8 @@ if (process.env.NODE_ENV === 'production' && process.env.VERCEL) {
     console.log('Database connected successfully');
   }).catch(err => {
     console.error('Unable to connect to database:', err);
+    // Continue without database for demo purposes
+    console.log('Running in demo mode without database');
   });
 }
 
