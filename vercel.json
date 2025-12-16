@@ -28,5 +28,5 @@
     }
   ],
   "installCommand": "npm install",
-  "buildCommand": "npm run client:build"
+  "buildCommand": "cd client && npm install && npm run build"
 }
