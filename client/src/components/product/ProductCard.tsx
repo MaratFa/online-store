@@ -26,11 +26,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     const hasHalfStar = rating % 1 !== 0;
 
     for (let i = 0; i < fullStars; i++) {
-      stars.push(<i key={i} className="fas fa-star"></i>);
+      stars.push(<i key={`full-${i}`} className="fas fa-star"></i>);
     }
 
     if (hasHalfStar) {
       stars.push(<i key="half" className="fas fa-star-half-alt"></i>);
+    }
+
+    // Add empty stars for the remaining rating
+    const emptyStars = 5 - Math.ceil(rating);
+    for (let i = 0; i < emptyStars; i++) {
+      stars.push(<i key={`empty-${i}`} className="far fa-star"></i>);
     }
 
     return stars;

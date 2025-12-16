@@ -19,6 +19,17 @@ const app = express();
 // Trust proxy for rate limiting when behind a proxy (like in development)
 app.set('trust proxy', 1);
 
+// Handle serverless environment
+if (process.env.NODE_ENV === 'production' && process.env.VERCEL) {
+  // Initialize database connection for serverless environment
+  const { sequelize } = require('./models');
+  sequelize.authenticate().then(() => {
+    console.log('Database connected successfully');
+  }).catch(err => {
+    console.error('Unable to connect to database:', err);
+  });
+}
+
 // Body parser
 app.use(express.json());
 

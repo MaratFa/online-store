@@ -4,6 +4,14 @@ const path = require('path');
 // Load environment variables from the server directory
 dotenv.config({ path: path.join(__dirname, '../server/.env') });
 
+// Initialize database connection for serverless environment
+const { sequelize } = require('../server/src/models');
+sequelize.authenticate().then(() => {
+  console.log('Database connected successfully');
+}).catch(err => {
+  console.error('Unable to connect to database:', err);
+});
+
 // Import the app after loading environment variables
 const app = require('../server/src/app');
 

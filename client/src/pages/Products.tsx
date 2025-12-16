@@ -24,6 +24,7 @@ const Pagination: React.FC<{
   return (
     <div className="pagination">
       <button
+        key="prev-page"
         className="pagination-btn"
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
@@ -42,6 +43,7 @@ const Pagination: React.FC<{
       ))}
 
       <button
+        key="next-page"
         className="pagination-btn"
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
@@ -69,7 +71,7 @@ const QuickViewModal: React.FC<{
   return (
     <div className="quick-view-modal" onClick={onClose}>
       <div className="quick-view-content" onClick={(e) => e.stopPropagation()}>
-        <button className="close-btn" onClick={onClose}>
+        <button key="close-btn" className="close-btn" onClick={onClose}>
           <i className="fas fa-times"></i>
         </button>
         <div className="quick-view-image">
@@ -81,10 +83,10 @@ const QuickViewModal: React.FC<{
           <ProductPrice product={product} />
           <div className="product-description">{product.description}</div>
           <div className="quick-view-actions">
-            <Link to={`/product/${product.id}`} className="view-details-btn">
+            <Link key="view-details-btn" to={`/product/${product.id}`} className="view-details-btn">
               View Details
             </Link>
-            <button className="add-to-cart-btn" onClick={handleAddToCart}>
+            <button key="quick-view-add-to-cart-btn" className="add-to-cart-btn" onClick={handleAddToCart}>
               Add to Cart
             </button>
           </div>
@@ -115,6 +117,7 @@ const ProductCard: React.FC<{
     <div className="product-card">
       <div className="product-actions">
         <button
+          key="compare-btn"
           className={`compare-checkbox ${isInCompareList ? "active" : ""}`}
           onClick={() => onAddToCompare(product.id)}
           title="Add to compare"
@@ -122,6 +125,7 @@ const ProductCard: React.FC<{
           <i className="fas fa-balance-scale"></i>
         </button>
         <button
+          key="quick-view-btn"
           className="quick-view-btn"
           onClick={() => onQuickView(product)}
           title="Quick view"
@@ -129,7 +133,7 @@ const ProductCard: React.FC<{
           <i className="fas fa-eye"></i>
         </button>
       </div>
-      <Link to={`/product/${product.id}`} className="product-link">
+      <Link key={`product-link-${product.id}`} to={`/product/${product.id}`} className="product-link">
         <div className="product-image">
           <img src={product.image} alt={product.name} />
           {product.discountPrice && (
@@ -143,7 +147,7 @@ const ProductCard: React.FC<{
           <ProductPrice product={product} />
         </div>
       </Link>
-      <button className="add-to-cart-btn" onClick={handleAddToCart}>
+      <button key="add-to-cart-btn" className="add-to-cart-btn" onClick={handleAddToCart}>
         Add to Cart
       </button>
     </div>
@@ -263,7 +267,7 @@ export const Products: React.FC = () => {
           <div className="error-state">
             <i className="fas fa-exclamation-circle"></i>
             <p>Error: {error}</p>
-            <button onClick={() => dispatch(fetchProducts({ filter: {}, page: 1 }))} className="btn">
+            <button key="try-again-btn" onClick={() => dispatch(fetchProducts({ filter: {}, page: 1 }))} className="btn">
               Try Again
             </button>
           </div>
@@ -286,7 +290,7 @@ export const Products: React.FC = () => {
                   value={searchTerm}
                   onChange={(e) => dispatch(searchProducts(e.target.value))}
                 />
-                <button className="search-btn">
+                <button key="search-btn" className="search-btn">
                   <i className="fas fa-search"></i>
                 </button>
               </div>
@@ -377,6 +381,7 @@ export const Products: React.FC = () => {
           {compareList.length > 0 && (
             <div className="compare-section">
               <button
+                key="compare-btn"
                 className="compare-btn"
                 disabled={compareList.length < 2}
                 onClick={() =>
@@ -416,7 +421,7 @@ export const Products: React.FC = () => {
             <div className="recently-viewed-grid">
               {recentlyViewed.map((product) => (
                 <div key={product.id} className="recently-viewed-card">
-                  <Link to={`/product/${product.id}`}>
+                  <Link key={`recently-viewed-${product.id}`} to={`/product/${product.id}`}>
                     <img src={product.image} alt={product.name} />
                     <div className="product-info">
                       <h4>{product.name}</h4>

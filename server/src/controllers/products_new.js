@@ -48,7 +48,7 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
   // Executing query
   const products = await Product.findAll({
     where: whereClause,
-    include: [{ model: Category, as: 'category' }],
+    include: [{ model: Category }],
     attributes,
     order,
     limit,
