@@ -1,9 +1,9 @@
+// Load environment variables before any other imports
 import dotenv from 'dotenv';
+dotenv.config({ path: './.env' });
+
 import { sequelize, syncDb } from './src/models';
 import app from './src/app';
-
-// Load environment variables
-dotenv.config({ path: './.env' });
 
 // Initialize database connection
 const initializeDatabase = async (): Promise<void> => {
@@ -17,14 +17,24 @@ const initializeDatabase = async (): Promise<void> => {
   }
 };
 
-// Initialize database connection
-initializeDatabase();
+// Initialize database connection and then start server
+const startServer = async () => {
+  try {
+    await initializeDatabase();
+    
+    // For local development
+    if (process.env.NODE_ENV !== 'production') {
+      const PORT: number = parseInt(process.env.PORT || '5000', 10);
+      app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    }
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+};
 
-// For local development
-if (process.env.NODE_ENV !== 'production') {
-  const PORT: number = parseInt(process.env.PORT || '5000', 10);
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}
+// Start the server
+startServer();
 
 // For Vercel serverless functions
 export default app;

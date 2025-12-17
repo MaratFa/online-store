@@ -1,9 +1,9 @@
+// Load environment variables before any other imports
+import dotenv from 'dotenv';
+dotenv.config({ path: '../.env' });
+
 import { Sequelize, Dialect } from 'sequelize';
 import config from './database';
-import dotenv from 'dotenv';
-
-// Load environment variables
-dotenv.config();
 
 const env: string = process.env.NODE_ENV || 'development';
 const dbConfig = config[env as keyof typeof config];
@@ -38,7 +38,7 @@ const createPgConnection = async () => {
       user: dbConfig.username,
       host: dbConfig.host,
       database: dbConfig.database,
-      password: dbConfig.password,
+      password: String(dbConfig.password || ''),
       port: port,
       name: 'password authentication'
     },
@@ -87,7 +87,7 @@ const createPgConnection = async () => {
         sequelize = new Sequelize(
           method.database as string,
           method.user as string,
-          method.password as string,
+          String(method.password || ''),
           {
             host: method.host,
             port: method.port,
@@ -120,7 +120,7 @@ const createPgConnection = async () => {
   return new Sequelize(
     dbConfig.database || '',
     dbConfig.username || '',
-    dbConfig.password || '',
+    String(dbConfig.password || ''),
     {
       host: dbConfig.host || '',
       port: (dbConfig as any).port || 5432,
@@ -144,7 +144,7 @@ const createPgConnection = async () => {
 let sequelize = new Sequelize(
   dbConfig.database || '',
   dbConfig.username || '',
-  dbConfig.password || '',
+  String(dbConfig.password || ''),
   {
     host: dbConfig.host || '',
     port: (dbConfig as any).port || 5432,
