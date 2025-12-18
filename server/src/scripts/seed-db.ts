@@ -1,14 +1,14 @@
 // Load environment variables
 require('dotenv').config({ path: '../../.env' });
 
-const { sequelize, User, Category, Product } = require('../models');
+const { sequelize: database, User, Category, Product } = require('../models');
 const bcrypt = require('bcryptjs');
 
 // Seed data
 const seedData = async () => {
   try {
     // Sync all models
-    await sequelize.sync({ force: true });
+    await database.sync({ force: true });
     console.log('Database synced!');
 
     // Create admin user
@@ -132,7 +132,7 @@ const seedData = async () => {
   } catch (error) {
     console.error('Error seeding database:', error);
   } finally {
-    await sequelize.close();
+    await database.close();
   }
 };
 

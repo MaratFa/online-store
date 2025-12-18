@@ -73,3 +73,6 @@ server/.vuepress/dist
 
 # Serverless directories
 server/.serverless
+
+#
+server/dist

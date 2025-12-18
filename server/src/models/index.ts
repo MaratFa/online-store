@@ -1,4 +1,5 @@
 import { sequelize } from '../config/db';
+import { Model } from 'sequelize';
 import User from './User';
 import Category from './Category';
 import Product from './Product';

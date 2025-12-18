@@ -1,9 +1,29 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../config/db';
 // @ts-ignore
 import bcrypt from 'bcryptjs';
 
-const User = sequelize.define('User', {
+interface UserInstance extends Model {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+  firstName: string;
+  lastName: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  country?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpire?: Date;
+  getSignedJwtToken(): string;
+  getResetPasswordToken(): string;
+}
+
+const User = sequelize.define<UserInstance>('User', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -11,7 +31,7 @@ const User = sequelize.define('User', {
   },
   username: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: true
   },
   email: {
@@ -84,14 +104,14 @@ const User = sequelize.define('User', {
 });
 
 // Instance methods
-User.prototype.getSignedJwtToken = function() {
+(User.prototype as any).getSignedJwtToken = function(this: UserInstance) {
   const jwt = require('jsonwebtoken');
   return jwt.sign({ id: this.id }, process.env.JWT_SECRET || 'default_secret', {
     expiresIn: process.env.JWT_EXPIRE || '30d',
   });
 };
 
-User.prototype.getResetPasswordToken = function() {
+(User.prototype as any).getResetPasswordToken = function(this: UserInstance) {
   const crypto = require('crypto');
 
   // Generate random token
@@ -104,7 +124,7 @@ User.prototype.getResetPasswordToken = function() {
     .digest('hex');
 
   // Set expire
-  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
+  this.resetPasswordExpire = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
   return resetToken;
 };

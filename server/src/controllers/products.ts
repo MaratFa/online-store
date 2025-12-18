@@ -13,15 +13,13 @@ export const getProducts = asyncHandler(async (req: Request, res: Response, next
   res.set('Expires', '0');
   res.set('Surrogate-Control', 'no-store');
 
-  // Return mock data if database is not connected
-  if (process.env.VERCEL) {
-    const mockProducts = require('../../../client/src/data/mocks').mockProducts;
-    return res.status(200).json({
-      success: true,
-      count: mockProducts.length,
-      data: mockProducts
-    });
-  }
+  // Always return mock data for now
+  const mockProducts = require('../../../client/src/data/mocks').mockProducts;
+  return res.status(200).json({
+    success: true,
+    count: mockProducts.length,
+    data: mockProducts
+  });
 
   // Copy req.query
   const reqQuery = { ...req.query };
