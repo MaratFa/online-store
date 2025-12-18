@@ -17,7 +17,7 @@ try {
   process.env.PGPASSWORD = process.env.PG_PASSWORD || 'postgres';
 
   if (isWindows) {
-    execSync(`psql -U postgres -c "CREATE DATABASE online_store_dev;"`, { stdio: 'inherit', shell: true });
+    execSync(`psql -U postgres -c "CREATE DATABASE online_store_dev;"`, { stdio: 'inherit', shell: true as any });
   } else {
     execSync(`createdb -U postgres online_store_dev`, { stdio: 'inherit' });
   }

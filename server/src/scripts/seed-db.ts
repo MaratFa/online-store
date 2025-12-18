@@ -1,3 +1,6 @@
+// Load environment variables
+require('dotenv').config({ path: '../../.env' });
+
 const { sequelize, User, Category, Product } = require('../models');
 const bcrypt = require('bcryptjs');
 

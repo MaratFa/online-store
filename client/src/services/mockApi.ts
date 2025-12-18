@@ -7,6 +7,7 @@ interface AuthResponse {
     id: string;
     email: string;
     name: string;
+    role?: string;
     avatar?: string;
   };
   token: string;
@@ -16,6 +17,7 @@ interface User {
   id: string;
   email: string;
   name: string;
+  role?: string;
   avatar?: string;
 }
 
@@ -141,8 +143,19 @@ export const mockApi = {
               id: "1",
               email: "user@example.com",
               name: "John Doe",
+              role: "user",
             },
             token: "mock-jwt-token",
+          });
+        } else if (email === "admin@example.com" && password === "admin123") {
+          resolve({
+            user: {
+              id: "2",
+              email: "admin@example.com",
+              name: "Admin User",
+              role: "admin",
+            },
+            token: "mock-admin-jwt-token",
           });
         } else {
           reject(new Error("Invalid credentials"));
@@ -186,6 +199,7 @@ export const mockApi = {
           id: "1",
           email: "user@example.com",
           name: "John Doe",
+          role: "user",
         });
       }, 500);
     });
