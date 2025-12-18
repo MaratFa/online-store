@@ -14,7 +14,17 @@ export const fetchProducts = createAsyncThunk(
         return [];
       }
 
-      return response.data;
+      // Handle nested data structure from API
+      // The API returns { success: true, count: number, data: products }
+      // We need to extract the actual products array
+      const products = response.data.data || response.data;
+
+      if (!Array.isArray(products)) {
+        console.warn("Thunk: Response data is not an array, returning empty array");
+        return [];
+      }
+
+      return products;
     } catch (error) {
       console.error("Thunk: Error fetching products", error);
       return rejectWithValue(
@@ -29,7 +39,8 @@ export const fetchProductById = createAsyncThunk(
   async (id: number, { rejectWithValue }) => {
     try {
       const response = await productAPI.getById(id);
-      return response?.data || null;
+      // Handle nested data structure from API
+      return response?.data?.data || response?.data || null;
     } catch (error) {
       return rejectWithValue(
         (error as any).response?.data?.message || "Failed to fetch product"
@@ -43,7 +54,9 @@ export const fetchProductsByCategory = createAsyncThunk(
   async (category: string, { rejectWithValue }) => {
     try {
       const response = await productAPI.getByCategory(category);
-      return response?.data || [];
+      // Handle nested data structure from API
+      const products = response?.data?.data || response?.data || [];
+      return Array.isArray(products) ? products : [];
     } catch (error) {
       return rejectWithValue(
         (error as any).response?.data?.message ||
@@ -58,7 +71,9 @@ export const searchProducts = createAsyncThunk(
   async (query: string, { rejectWithValue }) => {
     try {
       const response = await productAPI.search(query);
-      return response?.data || [];
+      // Handle nested data structure from API
+      const products = response?.data?.data || response?.data || [];
+      return Array.isArray(products) ? products : [];
     } catch (error) {
       return rejectWithValue(
         (error as any).response?.data?.message || "Failed to search products"

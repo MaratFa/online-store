@@ -49,7 +49,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <img src={product.image} alt={product.name} />
         </div>
         <div className="product-info">
-          <div className="product-category">{product.category}</div>
+          <div className="product-category">
+            {typeof product.category === 'string' 
+              ? product.category 
+              : product.Category?.name || 'Uncategorized'}
+          </div>
           <h3 className="product-title">{product.name}</h3>
           <div className="product-rating">
             <div className="stars">

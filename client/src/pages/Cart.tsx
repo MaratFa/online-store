@@ -71,7 +71,11 @@ export const Cart: React.FC = () => {
                     <Link to={`/product/${item.id}`} className="item-name">
                       {item.name}
                     </Link>
-                    <p className="item-category">{item.category}</p>
+                    <p className="item-category">
+                      {typeof item.category === 'string' 
+                        ? item.category 
+                        : item.Category?.name || 'Uncategorized'}
+                    </p>
                     <p className="item-stock">In Stock: {item.stock}</p>
                     {item.discountPrice && (
                       <div className="item-discount">

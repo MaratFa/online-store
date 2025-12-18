@@ -107,7 +107,11 @@ export const ProductDetail: React.FC = () => {
             <div className="product-meta">
               <div className="meta-item">
                 <span className="meta-label">Category:</span>
-                <span className="meta-value">{product.category}</span>
+                <span className="meta-value">
+                  {typeof product.category === 'string' 
+                    ? product.category 
+                    : product.Category?.name || 'Uncategorized'}
+                </span>
               </div>
               <div className="meta-item">
                 <span className="meta-label">Availability:</span>

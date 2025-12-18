@@ -1,4 +1,13 @@
 
+export interface Category {
+  id: number;
+  name: string;
+  description?: string;
+  image?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Product {
   id: number;
   name: string;
@@ -7,7 +16,8 @@ export interface Product {
   discountPrice?: number;
   image: string;
   images?: string[];
-  category: string;
+  category: string | Category;  // Can be either a string or a Category object
+  Category?: Category;         // Nested category object from API
   stock: number;
   rating: number;
   reviews: number;

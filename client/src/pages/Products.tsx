@@ -141,7 +141,11 @@ const ProductCard: React.FC<{
           )}
         </div>
         <div className="product-info">
-          <div className="product-category">{product.category}</div>
+          <div className="product-category">
+            {typeof product.category === 'string' 
+              ? product.category 
+              : product.Category?.name || 'Uncategorized'}
+          </div>
           <h3 className="product-title">{product.name}</h3>
           <RatingStars rating={product.rating} reviews={product.reviews} />
           <ProductPrice product={product} />
@@ -297,7 +301,7 @@ export const Products: React.FC = () => {
               <div className="filter-buttons">
                 {categories.map((category) => (
                   <button
-                    key={category}
+                    key={`filter-btn-${category}`}
                     className={`filter-btn ${
                       selectedCategory === category ? "active" : ""
                     }`}

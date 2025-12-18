@@ -49,7 +49,13 @@ const productsSlice = createSlice({
         state.filteredProducts = state.products;
       } else {
         state.filteredProducts = state.products.filter(
-          (product) => product.category === action.payload
+          (product) => {
+            // Handle both category formats: direct string or nested Category object
+            const productCategory = typeof product.category === 'string' 
+              ? product.category 
+              : product.Category?.name || 'Uncategorized';
+            return productCategory === action.payload;
+          }
         );
       }
 
@@ -71,7 +77,13 @@ const productsSlice = createSlice({
         state.selectedCategory === "All"
           ? state.products
           : state.products.filter(
-              (product) => product.category === state.selectedCategory
+              (product) => {
+                // Handle both category formats: direct string or nested Category object
+                const productCategory = typeof product.category === 'string' 
+                  ? product.category 
+                  : product.Category?.name || 'Uncategorized';
+                return productCategory === state.selectedCategory;
+              }
             );
 
       // Apply search filter
@@ -118,7 +130,12 @@ const productsSlice = createSlice({
 
           // Extract unique categories
           const uniqueCategories = Array.from(
-            new Set(action.payload.map((product: any) => product.category))
+            new Set(action.payload.map((product: any) => 
+              // Handle both category formats: direct string or nested Category object
+              typeof product.category === 'string' 
+                ? product.category 
+                : product.Category?.name || 'Uncategorized'
+            ))
           );
           state.categories = ["All", ...uniqueCategories];
         }

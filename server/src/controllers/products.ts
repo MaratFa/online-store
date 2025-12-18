@@ -7,6 +7,12 @@ const asyncHandler = require('../middleware/async');
 // @route   GET /api/v1/products
 // @access  Public
 export const getProducts = asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  // Add cache control headers to prevent caching
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  res.set('Surrogate-Control', 'no-store');
+
   // Return mock data if database is not connected
   if (process.env.VERCEL) {
     const mockProducts = require('../../../client/src/data/mocks').mockProducts;
