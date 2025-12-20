@@ -8,6 +8,6 @@ export * from './ui';
 export * from './product';
 
 // Shared components
-export * from './shared';
+// Note: No shared components to export at this time
 
 

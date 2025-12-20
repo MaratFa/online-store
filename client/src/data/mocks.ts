@@ -222,7 +222,7 @@ export const mockUser: User = {
   email: 'user@example.com',
   firstName: 'John',
   lastName: 'Doe',
-  avatar: '/images/avatar.jpg',
+  avatar: '/images/avatar.png',
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString()
 };
